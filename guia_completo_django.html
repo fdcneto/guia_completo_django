@@ -320,6 +320,31 @@
             font-weight: 600;
         }
         
+        .comparison-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1.5rem 0;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 8px var(--shadow);
+        }
+        
+        .comparison-table th {
+            background: var(--primary);
+            color: var(--white);
+            padding: 1rem;
+            text-align: left;
+        }
+        
+        .comparison-table td {
+            padding: 1rem;
+            border-bottom: 1px solid var(--light);
+        }
+        
+        .comparison-table tr:nth-child(even) {
+            background: var(--light);
+        }
+        
         @media (max-width: 768px) {
             body {
                 padding: 1rem 0.5rem;
@@ -340,6 +365,11 @@
             .grid-2 {
                 grid-template-columns: 1fr;
             }
+            
+            .comparison-table {
+                display: block;
+                overflow-x: auto;
+            }
         }
     </style>
 </head>
@@ -359,10 +389,12 @@
             <h2><span class="emoji">📋</span>Índice do Conteúdo</h2>
             <ul>
                 <li><a href="#instalacao">Instalação e Configuração do Ambiente</a></li>
+                <li><a href="#django-vs-flask">Django vs Flask: Comparação Completa</a></li>
                 <li><a href="#sintaxe">Entendendo a Sintaxe do Django</a></li>
                 <li><a href="#projeto">Criando seu Primeiro Projeto</a></li>
                 <li><a href="#apps">Trabalhando com Apps</a></li>
                 <li><a href="#models">Models e Banco de Dados</a></li>
+                <li><a href="#migrations">Migrations: Controle de Versão do Banco</a></li>
                 <li><a href="#views">Views e URLs</a></li>
                 <li><a href="#templates">Sistema de Templates</a></li>
                 <li><a href="#forms">Formulários</a></li>
@@ -406,6 +438,150 @@ source .venv/bin/activate</code></pre>
                 
                 <p>Para projetos com API REST e CORS:</p>
                 <pre><code>pip install django djangorestframework django-cors-headers python-dotenv</code></pre>
+                
+                <p>Para autenticação JWT:</p>
+                <pre><code>pip install djangorestframework-simplejwt</code></pre>
+                
+                <div class="tip-box">
+                    <strong>💡 Dica:</strong>
+                    Salve as dependências em um arquivo requirements.txt:
+                    <code>pip freeze > requirements.txt</code>
+                </div>
+            </div>
+
+            <h2 id="django-vs-flask"><span class="emoji">⚖️</span>Django vs Flask: Comparação Completa</h2>
+            
+            <div class="intro-box">
+                <h3>🏗️ Entendendo as Diferenças</h3>
+                <p>Django e Flask são dois frameworks Python populares, mas com filosofias diferentes:</p>
+                <ul>
+                    <li><strong>Flask</strong> é como uma casa em construção: você começa com o terreno vazio e escolhe cada material</li>
+                    <li><strong>Django</strong> é como uma casa pré-fabricada: já vem com estrutura pronta e regras definidas</li>
+                </ul>
+            </div>
+
+            <table class="comparison-table">
+                <thead>
+                    <tr>
+                        <th>Característica</th>
+                        <th>Flask</th>
+                        <th>Django</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Tipo de framework</strong></td>
+                        <td>Microframework</td>
+                        <td>Framework completo</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Filosofia</strong></td>
+                        <td>"Escolha o que quiser usar" - liberdade total</td>
+                        <td>"Baterias incluídas" - quase tudo pronto</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Complexidade inicial</strong></td>
+                        <td>Leve e simples para projetos pequenos</td>
+                        <td>Estrutura robusta, ideal para sistemas grandes</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Controle do desenvolvedor</strong></td>
+                        <td>Mais liberdade para decisões</td>
+                        <td>Mais opinião e padronização</td>
+                    </tr>
+                    <tr>
+                        <td><strong>ORM</strong></td>
+                        <td>SQLAlchemy ou outro à escolha</td>
+                        <td>ORM nativo integrado</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Painel administrativo</strong></td>
+                        <td>Não possui por padrão</td>
+                        <td>Painel admin automático incluso</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Arquitetura</strong></td>
+                        <td>Manual, o programador define tudo</td>
+                        <td>Estruturada em apps independentes</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="step-container">
+                <h3><span class="step-number">4</span>Comparação de Estrutura</h3>
+                
+                <h4>Flask (Microframework):</h4>
+                <pre><code>projeto_flask/
+├── app.py              # Tudo em um arquivo inicialmente
+├── models.py           # Se você criar
+├── requirements.txt
+└── templates/          # Se você criar</code></pre>
+
+                <h4>Django (Full-Stack Framework):</h4>
+                <pre><code>projeto_django/
+├── manage.py           # Comandos administrativos
+├── meu_projeto/        # Configurações do projeto
+│   ├── settings.py     # TUDO de configuração
+│   ├── urls.py         # URLs principais
+│   └── wsgi.py
+├── usuarios/           # App específico
+│   ├── models.py       # Models do app
+│   ├── views.py        # Views (rotas)
+│   ├── urls.py         # URLs do app
+│   ├── admin.py        # Django Admin
+│   └── migrations/     # Versionamento do BD
+└── db.sqlite3</code></pre>
+            </div>
+
+            <div class="step-container">
+                <h3><span class="step-number">5</span>Apps vs Projetos no Django</h3>
+                <p>No Django, existe a ideia de <span class="highlight">App</span> e <span class="highlight">Projeto</span>:</p>
+                <ul>
+                    <li><strong>Projeto:</strong> Container de todos os apps + configurações globais</li>
+                    <li><strong>App:</strong> Módulo específico com funcionalidade única</li>
+                </ul>
+                
+                <div class="tip-box">
+                    <strong>💡 Exemplo Prático:</strong>
+                    <p>PROJETO = Shopping Interior (geovannis_pizza)</p>
+                    <ul>
+                        <li>APP 1 = Loja de Pizza (usuarios)</li>
+                        <li>APP 2 = Loja de Bebidas (produtos)</li>
+                        <li>APP 3 = Delivery (futuramente)</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="step-container">
+                <h3><span class="step-number">6</span>Comparação de Arquitetura</h3>
+                
+                <table class="comparison-table">
+                    <thead>
+                        <tr>
+                            <th>Django (MTV)</th>
+                            <th>Flask (MVC)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Model (models.py)</td>
+                            <td>Model (models.py)</td>
+                        </tr>
+                        <tr>
+                            <td>Template (HTML)</td>
+                            <td>View (HTML)</td>
+                        </tr>
+                        <tr>
+                            <td>View (views.py)</td>
+                            <td>Controller (routes)</td>
+                        </tr>
+                    </tbody>
+                </table>
+                
+                <div class="warning-box">
+                    <strong>⚠️ Atenção:</strong>
+                    No Django, "View" é o que seria "Controller" em outros frameworks!
+                </div>
             </div>
 
             <h2 id="sintaxe"><span class="emoji">📖</span>Entendendo a Sintaxe do Django</h2>
@@ -459,14 +635,14 @@ Post.objects.get(id=1)</code></pre>
             <h2 id="projeto"><span class="emoji">🎯</span>Criando seu Primeiro Projeto</h2>
 
             <div class="step-container">
-                <h3><span class="step-number">4</span>Criar Projeto Django</h3>
+                <h3><span class="step-number">7</span>Criar Projeto Django</h3>
                 <span class="command-label">django-admin</span>
                 <pre><code>django-admin startproject meu_site .</code></pre>
                 <p>O ponto final <code>.</code> significa "criar aqui". Isso gera <code>manage.py</code> e a pasta <code>meu_site</code> com as configurações.</p>
             </div>
 
             <div class="step-container">
-                <h3><span class="step-number">5</span>Estrutura do Projeto</h3>
+                <h3><span class="step-number">8</span>Estrutura do Projeto</h3>
                 <p>Após criar o projeto, você terá a seguinte estrutura:</p>
                 <pre><code>meu_site/
     ├── manage.py           # Comandos do Django
@@ -476,16 +652,36 @@ Post.objects.get(id=1)</code></pre>
         ├── urls.py         # URLs principais
         ├── asgi.py
         └── wsgi.py</code></pre>
+                
+                <div class="tip-box">
+                    <strong>💡 Explicação da Estrutura:</strong>
+                    <ul>
+                        <li><strong>manage.py:</strong> Script de linha de comando para interagir com o projeto</li>
+                        <li><strong>settings.py:</strong> Arquivo de configuração principal (banco, apps, segurança)</li>
+                        <li><strong>urls.py:</strong> Define as rotas do projeto - qual view é chamada para cada URL</li>
+                        <li><strong>asgi.py / wsgi.py:</strong> Pontos de entrada para servidores web</li>
+                    </ul>
+                </div>
             </div>
 
             <div class="step-container">
-                <h3><span class="step-number">6</span>Executar o Servidor</h3>
+                <h3><span class="step-number">9</span>Executar o Servidor</h3>
                 <span class="command-label">manage.py</span>
                 <pre><code>python manage.py runserver</code></pre>
-                <p>Acesse no navegador: <code>http://127.0.0.1:8000/</code></p>
+                <p>Ou para porta específica:</p>
+                <pre><code>python manage.py runserver 8080</code></pre>
+                <p>Acesse no navegador: <code>http://127.0.0.1:8000/</code> ou <code>http://localhost:8080</code></p>
                 <div class="success-box">
                     Se ver a página de boas-vindas do Django, está tudo funcionando! 🎉
                 </div>
+            </div>
+
+            <div class="step-container">
+                <h3><span class="step-number">10</span>Aplicar Migrations Iniciais</h3>
+                <p>Quando executar o servidor pela primeira vez, você verá um aviso sobre "unapplied migrations".</p>
+                <span class="command-label">Terminal</span>
+                <pre><code>python manage.py migrate</code></pre>
+                <p>Isso criará o arquivo <code>db.sqlite3</code> e as tabelas internas do Django (usuários do admin, sessões, etc).</p>
             </div>
 
             <h2 id="apps"><span class="emoji">📦</span>Trabalhando com Apps</h2>
@@ -493,7 +689,7 @@ Post.objects.get(id=1)</code></pre>
             <p>Um <span class="highlight">projeto Django</span> pode ter múltiplos <span class="highlight">apps</span>. Pense no app como uma caixinha que faz uma coisa específica (ex: blog, loja, autenticação).</p>
 
             <div class="step-container">
-                <h3><span class="step-number">7</span>Criar um App</h3>
+                <h3><span class="step-number">11</span>Criar um App</h3>
                 <span class="command-label">manage.py</span>
                 <pre><code>python manage.py startapp blog</code></pre>
                 <p>Isso cria a pasta <code>blog/</code> com:</p>
@@ -502,11 +698,13 @@ Post.objects.get(id=1)</code></pre>
                     <li><code>views.py</code> - Lógica das páginas</li>
                     <li><code>admin.py</code> - Configuração do painel admin</li>
                     <li><code>tests.py</code> - Testes automatizados</li>
+                    <li><code>apps.py</code> - Configuração da aplicação</li>
+                    <li><code>migrations/</code> - Versionamento do banco de dados</li>
                 </ul>
             </div>
 
             <div class="step-container">
-                <h3><span class="step-number">8</span>Registrar o App</h3>
+                <h3><span class="step-number">12</span>Registrar o App</h3>
                 <p>No arquivo <code>meu_site/settings.py</code>, adicione em <code>INSTALLED_APPS</code>:</p>
                 <pre><code>INSTALLED_APPS = [
     'django.contrib.admin',
@@ -524,7 +722,61 @@ Post.objects.get(id=1)</code></pre>
             <p>Models são classes Python que definem a estrutura dos dados. Django converte automaticamente em tabelas SQL.</p>
 
             <div class="step-container">
-                <h3><span class="step-number">9</span>Definir um Model</h3>
+                <h3><span class="step-number">13</span>O que é ORM?</h3>
+                <p>ORM (Object-Relational Mapping) = Tradução entre Objetos Python e Tabelas SQL.</p>
+                
+                <h4>Sem ORM (SQL puro):</h4>
+                <pre><code>cursor.execute("INSERT INTO usuarios (nome, email) VALUES (?, ?)", 
+    ("CoquinhaZero", "coquinha0@email.com"))</code></pre>
+                
+                <h4>Com ORM (Django):</h4>
+                <pre><code>Usuario.objects.create(nome="CoquinhaZero", email="coquinha0@email.com")</code></pre>
+            </div>
+
+            <div class="step-container">
+                <h3><span class="step-number">14</span>Comparação: Flask vs Django ORM</h3>
+                
+                <h4>Flask + SQLAlchemy:</h4>
+                <pre><code>from flask_sqlalchemy import SQLAlchemy
+from datetime import datetime, timezone
+
+db = SQLAlchemy()
+
+class Usuario(db.Model):
+    __tablename__ = 'usuarios'
+    
+    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    nome = db.Column(db.String(80), nullable=False)
+    email = db.Column(db.String(80), unique=True, nullable=False)
+    senha = db.Column(db.String(255), nullable=False)
+    criado = db.Column(db.DateTime, default=datetime.now(timezone.utc))</code></pre>
+
+                <h4>Django ORM:</h4>
+                <pre><code>from django.db import models
+
+class Usuario(models.Model):
+    # id é criado automaticamente pelo Django
+    nome = models.CharField(max_length=80)
+    email = models.EmailField(unique=True)
+    senha = models.CharField(max_length=255)
+    criado = models.DateTimeField(auto_now_add=True)
+    
+    class Meta:
+        db_table = 'usuarios'</code></pre>
+                
+                <div class="tip-box">
+                    <strong>💡 Diferenças importantes:</strong>
+                    <ul>
+                        <li>Django cria id automaticamente</li>
+                        <li>EmailField já valida email</li>
+                        <li>auto_now_add=True = preenche automaticamente na criação</li>
+                        <li>Não precisa inicializar db.init_app()</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="step-container">
+                <h3><span class="step-number">15</span>Definir um Model</h3>
                 <p>No arquivo <code>blog/models.py</code>:</p>
                 <pre><code>from django.db import models
 
@@ -549,27 +801,74 @@ class Post(models.Model):
                         <li><code>DateTimeField</code> - Data e hora</li>
                         <li><code>BooleanField</code> - Verdadeiro/Falso</li>
                         <li><code>ForeignKey</code> - Relacionamento</li>
+                        <li><code>EmailField</code> - Email com validação</li>
                     </ul>
                 </div>
             </div>
 
+            <h2 id="migrations"><span class="emoji">🔄</span>Migrations: Controle de Versão do Banco</h2>
+
+            <div class="intro-box">
+                <h3>📊 O que são Migrations?</h3>
+                <p>Migrations são como "versões" do banco de dados:</p>
+                <ul>
+                    <li>Migration 0001: Criar tabela usuários</li>
+                    <li>Migration 0002: Adicionar campo telefone</li>
+                    <li>Migration 0003: Remover campo telefone</li>
+                </ul>
+                <p><strong>TL;DR:</strong> Migrations são para o banco o que o Git é para o código.</p>
+            </div>
+
             <div class="step-container">
-                <h3><span class="step-number">10</span>Criar e Aplicar Migrations</h3>
+                <h3><span class="step-number">16</span>Por que usar Migrations?</h3>
+                
+                <h4>1. Trabalho em equipe (todo mundo tem o mesmo banco)</h4>
+                <p><strong>Sem migrations:</strong> Cada dev teria que criar/alterar tabelas na mão</p>
+                <p><strong>Com migrations:</strong> Django gera arquivos de alteração que podem ser compartilhados</p>
+                
+                <h4>2. Histórico de mudanças</h4>
+                <p>Guarda quando colunas foram criadas, renomeadas ou removidas</p>
+                
+                <h4>3. Reverter alterações se necessário</h4>
+                <p>Cada migração pode ser "desfeita":</p>
+                <pre><code>python manage.py migrate app 0002</code></pre>
+                <p>Volta o banco para o estado da migration 0002</p>
+                
+                <h4>4. Deploy facilitado</h4>
+                <p>Quando você sobe o projeto para produção:</p>
+                <pre><code>git pull
+python manage.py migrate</code></pre>
+                <p>O banco de produção se atualiza sozinho</p>
+            </div>
+
+            <div class="step-container">
+                <h3><span class="step-number">17</span>Criar e Aplicar Migrations</h3>
                 <p>Migrations são como "controle de versão" do banco de dados:</p>
                 
                 <span class="command-label">Gerar migrations</span>
                 <pre><code>python manage.py makemigrations</code></pre>
                 
+                <p>Ou para um app específico:</p>
+                <pre><code>python manage.py makemigrations blog</code></pre>
+                
                 <span class="command-label">Aplicar ao banco</span>
                 <pre><code>python manage.py migrate</code></pre>
+                
+                <p>Ou para um app específico:</p>
+                <pre><code>python manage.py migrate blog</code></pre>
                 
                 <div class="success-box">
                     Django criou as tabelas no banco automaticamente! 🎉
                 </div>
+                
+                <div class="tip-box">
+                    <strong>💡 Onde ficam as migrations?</strong>
+                    <p>As migrations ficam em <code>app/migrations/</code>. São arquivos Python que representam operações SQL. Django gera automaticamente - nunca edite manualmente (a não ser que saiba o que está fazendo).</p>
+                </div>
             </div>
 
             <div class="step-container">
-                <h3><span class="step-number">11</span>Registrar no Admin</h3>
+                <h3><span class="step-number">18</span>Registrar no Admin</h3>
                 <p>No arquivo <code>blog/admin.py</code>:</p>
                 <pre><code>from django.contrib import admin
 from .models import Post
@@ -582,11 +881,16 @@ class PostAdmin(admin.ModelAdmin):
             </div>
 
             <div class="step-container">
-                <h3><span class="step-number">12</span>Criar Superusuário</h3>
+                <h3><span class="step-number">19</span>Criar Superusuário</h3>
                 <span class="command-label">manage.py</span>
                 <pre><code>python manage.py createsuperuser</code></pre>
                 <p>Siga os prompts para definir username, email e senha.</p>
                 <p>Acesse <code>http://127.0.0.1:8000/admin/</code> e faça login!</p>
+                
+                <div class="warning-box">
+                    <strong>⚠️ Importante:</strong>
+                    Na vida real, não use senhas fracas como "admin123"!
+                </div>
             </div>
 
             <h2 id="views"><span class="emoji">🎨</span>Views e URLs</h2>
@@ -594,7 +898,7 @@ class PostAdmin(admin.ModelAdmin):
             <p>Views são funções (ou classes) que recebem requisições HTTP e retornam respostas.</p>
 
             <div class="step-container">
-                <h3><span class="step-number">13</span>Criar Views</h3>
+                <h3><span class="step-number">20</span>Criar Views</h3>
                 <p>No arquivo <code>blog/views.py</code>:</p>
                 <pre><code>from django.shortcuts import render, get_object_or_404
 from .models import Post
@@ -609,7 +913,38 @@ def post_detail(request, pk):
             </div>
 
             <div class="step-container">
-                <h3><span class="step-number">14</span>Configurar URLs do App</h3>
+                <h3><span class="step-number">21</span>Comparação: Flask vs Django Views</h3>
+                
+                <h4>Flask:</h4>
+                <pre><code>from flask import Flask, jsonify
+
+app = Flask(__name__)
+
+@app.route('/')
+def home():
+    return jsonify({'mensagem': 'Olá'})
+    
+if __name__ == '__main__':
+    app.run(debug=True)</code></pre>
+
+                <h4>Django:</h4>
+                <pre><code># usuarios/views.py
+from django.http import JsonResponse
+
+def home(request):
+    return JsonResponse({'mensagem': 'Olá'})
+
+# usuarios/urls.py
+from django.urls import path
+from . import views
+
+urlpatterns = [
+    path('', views.home),
+]</code></pre>
+            </div>
+
+            <div class="step-container">
+                <h3><span class="step-number">22</span>Configurar URLs do App</h3>
                 <p>Crie o arquivo <code>blog/urls.py</code>:</p>
                 <pre><code>from django.urls import path
 from . import views
@@ -621,7 +956,7 @@ urlpatterns = [
             </div>
 
             <div class="step-container">
-                <h3><span class="step-number">15</span>Incluir no Projeto</h3>
+                <h3><span class="step-number">23</span>Incluir no Projeto</h3>
                 <p>No arquivo <code>meu_site/urls.py</code>:</p>
                 <pre><code>from django.contrib import admin
 from django.urls import path, include
@@ -632,10 +967,23 @@ urlpatterns = [
 ]</code></pre>
             </div>
 
+            <div class="step-container">
+                <h3><span class="step-number">24</span>Fluxo de Requisição no Django</h3>
+                <ol>
+                    <li>Usuário acessa: <code>http://localhost:8080/</code></li>
+                    <li>Django procura em: <code>geovannis_pizza/urls.py</code></li>
+                    <li>Encontra: <code>path("", include('usuarios.urls'))</code></li>
+                    <li>Vai para: <code>usuarios/urls.py</code></li>
+                    <li>Encontra: <code>path("", views.home)</code></li>
+                    <li>Executa: <code>views.home(request)</code></li>
+                    <li>Retorna: JSON ou HTML</li>
+                </ol>
+            </div>
+
             <h2 id="templates"><span class="emoji">🖼️</span>Sistema de Templates</h2>
 
             <div class="step-container">
-                <h3><span class="step-number">16</span>Configurar Pasta de Templates</h3>
+                <h3><span class="step-number">25</span>Configurar Pasta de Templates</h3>
                 <p>No arquivo <code>settings.py</code>:</p>
                 <pre><code>import os
 
@@ -651,7 +999,7 @@ TEMPLATES = [
             </div>
 
             <div class="step-container">
-                <h3><span class="step-number">17</span>Criar Template de Lista</h3>
+                <h3><span class="step-number">26</span>Criar Template de Lista</h3>
                 <p>Arquivo <code>templates/blog/lista_posts.html</code>:</p>
                 <pre><code>&lt;!DOCTYPE html&gt;
 &lt;html lang="pt-BR"&gt;
@@ -677,7 +1025,7 @@ TEMPLATES = [
             </div>
 
             <div class="step-container">
-                <h3><span class="step-number">18</span>Template de Detalhes</h3>
+                <h3><span class="step-number">27</span>Template de Detalhes</h3>
                 <p>Arquivo <code>templates/blog/post_detail.html</code>:</p>
                 <pre><code>&lt;!DOCTYPE html&gt;
 &lt;html lang="pt-BR"&gt;
@@ -698,7 +1046,7 @@ TEMPLATES = [
             <h2 id="forms"><span class="emoji">📝</span>Formulários</h2>
 
             <div class="step-container">
-                <h3><span class="step-number">19</span>Criar Formulário</h3>
+                <h3><span class="step-number">28</span>Criar Formulário</h3>
                 <p>Crie o arquivo <code>blog/forms.py</code>:</p>
                 <pre><code>from django import forms
 from .models import Post
@@ -714,7 +1062,7 @@ class PostForm(forms.ModelForm):
             </div>
 
             <div class="step-container">
-                <h3><span class="step-number">20</span>View para Criar Post</h3>
+                <h3><span class="step-number">29</span>View para Criar Post</h3>
                 <p>No arquivo <code>blog/views.py</code>:</p>
                 <pre><code>from django.shortcuts import render, redirect
 from .forms import PostForm
@@ -731,7 +1079,7 @@ def criar_post(request):
             </div>
 
             <div class="step-container">
-                <h3><span class="step-number">21</span>Template do Formulário</h3>
+                <h3><span class="step-number">30</span>Template do Formulário</h3>
                 <p>Arquivo <code>templates/blog/criar_post.html</code>:</p>
                 <pre><code>&lt;!DOCTYPE html&gt;
 &lt;html lang="pt-BR"&gt;
@@ -760,7 +1108,36 @@ def criar_post(request):
             <p>Vamos implementar as operações de Edição e Exclusão para completar o CRUD:</p>
 
             <div class="step-container">
-                <h3><span class="step-number">22</span>View de Edição</h3>
+                <h3><span class="step-number">31</span>Operações CRUD no Django</h3>
+                
+                <h4>Criação:</h4>
+                <ul>
+                    <li><code>create()</code> = instancia + save() em uma linha</li>
+                    <li><code>save()</code> = salva no banco</li>
+                    <li><code>get_or_create()</code> = não duplica registros</li>
+                </ul>
+                
+                <h4>Leitura (Read):</h4>
+                <ul>
+                    <li><code>get()</code>: Retorna UM objeto ou erro</li>
+                    <li><code>filter()</code>: Retorna QuerySet (pode ser vazio)</li>
+                    <li><code>all()</code>: Retorna todos</li>
+                    <li><code>first()</code>: Primeiro do QuerySet ou None</li>
+                </ul>
+                
+                <h4>Atualização (Update):</h4>
+                <ul>
+                    <li><code>update()</code></li>
+                </ul>
+                
+                <h4>Exclusão (Delete):</h4>
+                <ul>
+                    <li><code>delete()</code></li>
+                </ul>
+            </div>
+
+            <div class="step-container">
+                <h3><span class="step-number">32</span>View de Edição</h3>
                 <p>No arquivo <code>blog/views.py</code>:</p>
                 <pre><code>def editar_post(request, pk):
     post = get_object_or_404(Post, pk=pk)
@@ -775,7 +1152,7 @@ def criar_post(request):
             </div>
 
             <div class="step-container">
-                <h3><span class="step-number">23</span>View de Exclusão</h3>
+                <h3><span class="step-number">33</span>View de Exclusão</h3>
                 <pre><code>def excluir_post(request, pk):
     post = get_object_or_404(Post, pk=pk)
     if request.method == 'POST':
@@ -785,7 +1162,7 @@ def criar_post(request):
             </div>
 
             <div class="step-container">
-                <h3><span class="step-number">24</span>Atualizar URLs</h3>
+                <h3><span class="step-number">34</span>Atualizar URLs</h3>
                 <p>No arquivo <code>blog/urls.py</code>:</p>
                 <pre><code>urlpatterns = [
     path('', views.lista_posts, name='lista_posts'),
@@ -797,7 +1174,7 @@ def criar_post(request):
             </div>
 
             <div class="step-container">
-                <h3><span class="step-number">25</span>Template de Confirmação de Exclusão</h3>
+                <h3><span class="step-number">35</span>Template de Confirmação de Exclusão</h3>
                 <p>Arquivo <code>templates/blog/confirmar_exclusao.html</code>:</p>
                 <pre><code>&lt;!DOCTYPE html&gt;
 &lt;html lang="pt-BR"&gt;
@@ -822,13 +1199,13 @@ def criar_post(request):
             <p>Django possui um sistema completo de autenticação já incluído. Vamos implementá-lo:</p>
 
             <div class="step-container">
-                <h3><span class="step-number">26</span>Criar App de Autenticação</h3>
+                <h3><span class="step-number">36</span>Criar App de Autenticação</h3>
                 <pre><code>python manage.py startapp account</code></pre>
                 <p>Adicione <code>'account',</code> em <code>INSTALLED_APPS</code> no <code>settings.py</code>.</p>
             </div>
 
             <div class="step-container">
-                <h3><span class="step-number">27</span>View de Registro</h3>
+                <h3><span class="step-number">37</span>View de Registro</h3>
                 <p>No arquivo <code>account/views.py</code>:</p>
                 <pre><code>from django.contrib.auth.forms import UserCreationForm
 from django.urls import reverse_lazy
@@ -841,7 +1218,7 @@ class RegisterView(generic.CreateView):
             </div>
 
             <div class="step-container">
-                <h3><span class="step-number">28</span>View de Login Customizada (Opcional)</h3>
+                <h3><span class="step-number">38</span>View de Login Customizada (Opcional)</h3>
                 <p>Se preferir uma view customizada:</p>
                 <pre><code>from django.contrib.auth import authenticate, login
 from django.shortcuts import render, redirect
@@ -861,7 +1238,7 @@ def custom_login(request):
             </div>
 
             <div class="step-container">
-                <h3><span class="step-number">29</span>View de Logout</h3>
+                <h3><span class="step-number">39</span>View de Logout</h3>
                 <pre><code>from django.contrib.auth import logout
 
 def custom_logout(request):
@@ -870,7 +1247,7 @@ def custom_logout(request):
             </div>
 
             <div class="step-container">
-                <h3><span class="step-number">30</span>URLs de Autenticação</h3>
+                <h3><span class="step-number">40</span>URLs de Autenticação</h3>
                 <p>Crie <code>account/urls.py</code>:</p>
                 <pre><code>from django.urls import path
 from django.contrib.auth import views as auth_views
@@ -891,7 +1268,7 @@ urlpatterns = [
             </div>
 
             <div class="step-container">
-                <h3><span class="step-number">31</span>Templates de Autenticação</h3>
+                <h3><span class="step-number">41</span>Templates de Autenticação</h3>
                 
                 <h4>Template de Registro (<code>templates/account/register.html</code>):</h4>
                 <pre><code>&lt;!DOCTYPE html&gt;
@@ -935,7 +1312,7 @@ urlpatterns = [
             </div>
 
             <div class="step-container">
-                <h3><span class="step-number">32</span>Proteger Views com Login</h3>
+                <h3><span class="step-number">42</span>Proteger Views com Login</h3>
                 <p>Use o decorator <code>@login_required</code>:</p>
                 <pre><code>from django.contrib.auth.decorators import login_required
 
@@ -951,7 +1328,7 @@ def editar_post(request, pk):
             </div>
 
             <div class="step-container">
-                <h3><span class="step-number">33</span>Configurações no settings.py</h3>
+                <h3><span class="step-number">43</span>Configurações no settings.py</h3>
                 <pre><code># Configurações de autenticação
 LOGIN_URL = 'login'
 LOGIN_REDIRECT_URL = '/'
@@ -962,7 +1339,7 @@ EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'</code></pre>
             </div>
 
             <div class="step-container">
-                <h3><span class="step-number">34</span>Recuperação de Senha</h3>
+                <h3><span class="step-number">44</span>Recuperação de Senha</h3>
                 <p>Adicione as URLs de recuperação em <code>account/urls.py</code>:</p>
                 <pre><code>urlpatterns += [
     path('password_reset/', 
@@ -981,7 +1358,7 @@ EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'</code></pre>
             </div>
 
             <div class="step-container">
-                <h3><span class="step-number">35</span>Proteção por Permissões</h3>
+                <h3><span class="step-number">45</span>Proteção por Permissões</h3>
                 <p>Para controle mais fino de acesso:</p>
                 <pre><code>from django.contrib.auth.decorators import permission_required
 
@@ -1001,7 +1378,7 @@ def publicar_post(request, pk):
             </div>
 
             <div class="step-container">
-                <h3><span class="step-number">36</span>Exibir Conteúdo Condicional no Template</h3>
+                <h3><span class="step-number">46</span>Exibir Conteúdo Condicional no Template</h3>
                 <pre><code>&lt;!-- Mostrar menu apenas para usuários autenticados --&gt;
 {% if user.is_authenticated %}
     &lt;p&gt;Bem-vindo, {{ user.username }}!&lt;/p&gt;
