@@ -432,22 +432,136 @@ source .venv/bin/activate</code></pre>
             </div>
 
             <div class="step-container">
-                <h3><span class="step-number">3</span>Instalar Django e Dependências</h3>
-                <span class="command-label">pip</span>
-                <pre><code>pip install django</code></pre>
-                
-                <p>Para projetos com API REST e CORS:</p>
-                <pre><code>pip install django djangorestframework django-cors-headers python-dotenv</code></pre>
-                
-                <p>Para autenticação JWT:</p>
-                <pre><code>pip install djangorestframework-simplejwt</code></pre>
-                
-                <div class="tip-box">
-                    <strong>💡 Dica:</strong>
-                    Salve as dependências em um arquivo requirements.txt:
-                    <code>pip freeze > requirements.txt</code>
-                </div>
-            </div>
+    <h3><span class="step-number">3</span>Instalar Django e Dependências</h3>
+    <span class="command-label">pip</span>
+    <pre><code>pip install django</code></pre>
+    
+    <p>Para projetos com API REST e CORS:</p>
+    <pre><code>pip install django djangorestframework django-cors-headers python-dotenv</code></pre>
+    
+    <p>Para autenticação JWT:</p>
+    <pre><code>pip install djangorestframework-simplejwt</code></pre>
+    
+    <div class="tip-box">
+        <strong>💡 Dica IMPORTANTE:</strong>
+        Salve as dependências em um arquivo requirements.txt:
+        <code>pip freeze > requirements.txt</code>
+    </div>
+</div>
+
+<!-- NOVA SEÇÃO ADICIONADA -->
+<div class="step-container">
+    <h3><span class="step-number">3.1</span>📦 Por que usar requirements.txt?</h3>
+    
+    <h4>O que é requirements.txt?</h4>
+    <p>É um arquivo que lista TODAS as bibliotecas Python que seu projeto precisa para funcionar, com suas versões específicas.</p>
+    
+    <h4>Exemplo do conteúdo:</h4>
+    <pre><code>Django==4.2.7
+djangorestframework==3.14.0
+django-cors-headers==4.3.1
+python-dotenv==1.0.0
+Pillow==10.0.1</code></pre>
+
+    <div class="grid-2">
+        <div class="card">
+            <h3>🚀 Para Desenvolvimento</h3>
+            <p><strong>Ambientes consistentes:</strong> Garante que todos os desenvolvedores do projeto usem as mesmas versões das bibliotecas.</p>
+            <p><strong>Evita "funciona na minha máquina":</strong> Elimina problemas de versões diferentes entre ambientes.</p>
+        </div>
+
+        <div class="card">
+            <h3>🌐 Para Produção</h3>
+            <p><strong>Deploy consistente:</strong> Servidores de produção instalam exatamente as mesmas versões do desenvolvimento.</p>
+            <p><strong>Reprodução de ambientes:</strong> Qualquer pessoa pode recriar exatamente o mesmo ambiente do projeto.</p>
+        </div>
+    </div>
+
+    <h4>📋 Casos de Uso Práticos:</h4>
+
+    <div class="syntax-card">
+        <h4>1. Novo desenvolvedor entra no projeto:</h4>
+        <pre><code># 1. Clona o repositório
+git clone projeto-django
+cd projeto-django
+
+# 2. Cria ambiente virtual
+python -m venv venv
+source venv/bin/activate  # ou .\venv\Scripts\activate no Windows
+
+# 3. Instala TODAS as dependências exatas
+pip install -r requirements.txt
+
+# 4. Pronto! Ambiente idêntico ao dos outros devs</code></pre>
+    </div>
+
+    <div class="syntax-card">
+        <h4>2. Deploy em servidor:</h4>
+        <pre><code># No servidor de produção
+git pull origin main
+pip install -r requirements.txt
+python manage.py migrate
+python manage.py collectstatic</code></pre>
+    </div>
+
+    <div class="syntax-card">
+        <h4>3. Problema de versão? Volte no tempo!</h4>
+        <pre><code># Se uma nova versão quebra seu projeto
+# Volte para o requirements.txt do commit anterior
+git checkout HEAD~1 -- requirements.txt
+pip install -r requirements.txt</code></pre>
+    </div>
+
+    <h4>⚠️ O que acontece SEM requirements.txt:</h4>
+    <div class="warning-box">
+        <ul>
+            <li><strong>"Na minha máquina funciona!"</strong> - Clássico problema de versões diferentes</li>
+            <li><strong>Quebras inesperadas</strong> - Atualização de biblioteca quebra funcionalidades</li>
+            <li><strong>Tempo perdido</strong> - Horas debugando problemas de ambiente</li>
+            <li><strong>Deploy falho</strong> - Servidor com versões incompatíveis</li>
+        </ul>
+    </div>
+
+    <h4>🎯 Boas Práticas:</h4>
+    <div class="success-box">
+        <ul>
+            <li><strong>Sempre gere requirements.txt após instalar novas dependências</strong></li>
+            <li><strong>Commit requirements.txt no Git</strong> - É parte essencial do projeto</li>
+            <li><strong>Use versões específicas</strong> - Evita "Django" (pega última versão), use "Django==4.2.7"</li>
+            <li><strong>Atualize regularmente</strong> - Mas com testes! Não atualize em produção direto</li>
+        </ul>
+    </div>
+
+    <h4>🔄 Comandos Úteis:</h4>
+    <div class="grid-2">
+        <div class="glossary-item">
+            <dt>pip freeze > requirements.txt</dt>
+            <dd>Gera/atualiza o arquivo com todas as dependências atuais</dd>
+        </div>
+        <div class="glossary-item">
+            <dt>pip install -r requirements.txt</dt>
+            <dd>Instala todas as dependências do arquivo</dd>
+        </div>
+        <div class="glossary-item">
+            <dt>pip list</dt>
+            <dd>Mostra todas as bibliotecas instaladas no ambiente</dd>
+        </div>
+        <div class="glossary-item">
+            <dt>pip show nome-biblioteca</dt>
+            <dd>Mostra informações de uma biblioteca específica</dd>
+        </div>
+    </div>
+
+    <div class="tip-box">
+        <strong>💡 Dica Pro:</strong>
+        Para projetos mais complexos, use <code>requirements</code> separados:
+        <ul>
+            <li><code>requirements-dev.txt</code> - Dependências só para desenvolvimento</li>
+            <li><code>requirements-prod.txt</code> - Dependências só para produção</li>
+            <li><code>requirements-test.txt</code> - Dependências para testes</li>
+        </ul>
+    </div>
+</div>
 
             <h2 id="django-vs-flask"><span class="emoji">⚖️</span>Django vs Flask: Comparação Completa</h2>
             
