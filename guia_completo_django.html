@@ -373,414 +373,105 @@
         }
 
         /* ===== RESPONSIVIDADE TOTAL ===== */
+        @media (max-width: 1024px) {
+            .container { margin: 1rem; border-radius: 20px; }
+            header { padding: 2rem 1.5rem; }
+            header h1 { font-size: 2.5rem; }
+            .content { padding: 2rem 1.5rem; }
+            h2 { font-size: 1.75rem; }
+            h3 { font-size: 1.4rem; }
+            .grid-2 { grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.25rem; }
+        }
 
-/* Tablets (768px a 1024px) */
-@media (max-width: 1024px) {
-    .container {
-        margin: 1rem;
-        border-radius: 20px;
-    }
-    
-    header {
-        padding: 2rem 1.5rem;
-    }
-    
-    header h1 {
-        font-size: 2.5rem;
-    }
-    
-    .content {
-        padding: 2rem 1.5rem;
-    }
-    
-    h2 {
-        font-size: 1.75rem;
-    }
-    
-    h3 {
-        font-size: 1.4rem;
-    }
-    
-    .grid-2 {
-        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-        gap: 1.25rem;
-    }
-}
+        @media (max-width: 768px) {
+            body { padding: 0.5rem; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); }
+            .container { margin: 0; border-radius: 16px 16px 0 0; box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3); }
+            header { padding: 1.5rem 1rem; }
+            header h1 { font-size: 2rem; line-height: 1.2; }
+            header p { font-size: 1.1rem; }
+            .content { padding: 1.5rem 1rem; }
+            h2 { font-size: 1.5rem; margin: 2rem 0 1rem; flex-direction: column; align-items: flex-start; gap: 0.5rem; }
+            h3 { font-size: 1.3rem; margin: 1.5rem 0 0.75rem; }
+            h4 { font-size: 1.1rem; }
+            p, li { font-size: 1rem; line-height: 1.6; }
+            .intro-box { padding: 1.5rem; margin: 1.5rem 0; }
+            .step-container { padding: 1.25rem; margin: 1.25rem 0; }
+            .step-number { width: 35px; height: 35px; font-size: 1.1rem; margin-right: 0.75rem; }
+            pre { padding: 1.25rem; font-size: 0.9rem; margin: 1.25rem 0; }
+            pre code { font-size: 0.85rem; }
+            .grid-2 { grid-template-columns: 1fr; gap: 1rem; margin: 1.5rem 0; }
+            .card { padding: 1.25rem; }
+            .comparison-table { font-size: 0.9rem; }
+            .comparison-table th, .comparison-table td { padding: 0.75rem 0.5rem; }
+            ul, ol { margin-left: 1.5rem; }
+            .emoji { font-size: 1.3rem; }
+        }
 
-/* Tablets Pequenos e Mobile Landscape (576px a 768px) */
-@media (max-width: 768px) {
-    body {
-        padding: 0.5rem;
-        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-    }
-    
-    .container {
-        margin: 0;
-        border-radius: 16px 16px 0 0;
-        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
-    }
-    
-    header {
-        padding: 1.5rem 1rem;
-    }
-    
-    header h1 {
-        font-size: 2rem;
-        line-height: 1.2;
-    }
-    
-    header p {
-        font-size: 1.1rem;
-    }
-    
-    .content {
-        padding: 1.5rem 1rem;
-    }
-    
-    h2 {
-        font-size: 1.5rem;
-        margin: 2rem 0 1rem;
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 0.5rem;
-    }
-    
-    h3 {
-        font-size: 1.3rem;
-        margin: 1.5rem 0 0.75rem;
-    }
-    
-    h4 {
-        font-size: 1.1rem;
-    }
-    
-    p, li {
-        font-size: 1rem;
-        line-height: 1.6;
-    }
-    
-    .intro-box {
-        padding: 1.5rem;
-        margin: 1.5rem 0;
-    }
-    
-    .step-container {
-        padding: 1.25rem;
-        margin: 1.25rem 0;
-    }
-    
-    .step-number {
-        width: 35px;
-        height: 35px;
-        font-size: 1.1rem;
-        margin-right: 0.75rem;
-    }
-    
-    pre {
-        padding: 1.25rem;
-        font-size: 0.9rem;
-        margin: 1.25rem 0;
-    }
-    
-    pre code {
-        font-size: 0.85rem;
-    }
-    
-    .grid-2 {
-        grid-template-columns: 1fr;
-        gap: 1rem;
-        margin: 1.5rem 0;
-    }
-    
-    .card {
-        padding: 1.25rem;
-    }
-    
-    .comparison-table {
-        font-size: 0.9rem;
-    }
-    
-    .comparison-table th,
-    .comparison-table td {
-        padding: 0.75rem 0.5rem;
-    }
-    
-    ul, ol {
-        margin-left: 1.5rem;
-    }
-    
-    .emoji {
-        font-size: 1.3rem;
-    }
-}
+        @media (max-width: 576px) {
+            body { padding: 0; background: var(--white); }
+            .container { border-radius: 0; box-shadow: none; min-height: 100vh; }
+            header { padding: 2rem 1rem; border-radius: 0; }
+            header h1 { font-size: 1.75rem; }
+            header p { font-size: 1rem; }
+            .content { padding: 1.25rem 1rem; }
+            h2 { font-size: 1.4rem; margin: 1.75rem 0 0.75rem; }
+            h3 { font-size: 1.25rem; margin: 1.25rem 0 0.5rem; }
+            .step-container { padding: 1rem; margin: 1rem 0; }
+            .step-number { width: 32px; height: 32px; font-size: 1rem; margin-right: 0.5rem; }
+            pre { padding: 1rem; font-size: 0.8rem; margin: 1rem 0; border-radius: 8px; }
+            pre code { font-size: 0.8rem; }
+            code { font-size: 0.85rem; padding: 0.2rem 0.4rem; }
+            .intro-box, .tip-box, .success-box, .warning-box { padding: 1rem; margin: 1rem 0; }
+            .command-label { font-size: 0.8rem; padding: 0.2rem 0.5rem; }
+            .glossary-item { padding: 0.75rem; }
+            .exercise { padding: 1.25rem; margin: 1.5rem 0; }
+            footer { padding: 1.5rem 1rem; margin-top: 2rem; }
+        }
 
-/* Mobile Portrait (375px a 576px) */
-@media (max-width: 576px) {
-    body {
-        padding: 0;
-        background: var(--white);
-    }
-    
-    .container {
-        border-radius: 0;
-        box-shadow: none;
-        min-height: 100vh;
-    }
-    
-    header {
-        padding: 2rem 1rem;
-        border-radius: 0;
-    }
-    
-    header h1 {
-        font-size: 1.75rem;
-    }
-    
-    header p {
-        font-size: 1rem;
-    }
-    
-    .content {
-        padding: 1.25rem 1rem;
-    }
-    
-    h2 {
-        font-size: 1.4rem;
-        margin: 1.75rem 0 0.75rem;
-    }
-    
-    h3 {
-        font-size: 1.25rem;
-        margin: 1.25rem 0 0.5rem;
-    }
-    
-    .step-container {
-        padding: 1rem;
-        margin: 1rem 0;
-    }
-    
-    .step-number {
-        width: 32px;
-        height: 32px;
-        font-size: 1rem;
-        margin-right: 0.5rem;
-    }
-    
-    pre {
-        padding: 1rem;
-        font-size: 0.8rem;
-        margin: 1rem 0;
-        border-radius: 8px;
-    }
-    
-    pre code {
-        font-size: 0.8rem;
-    }
-    
-    code {
-        font-size: 0.85rem;
-        padding: 0.2rem 0.4rem;
-    }
-    
-    .intro-box,
-    .tip-box,
-    .success-box,
-    .warning-box {
-        padding: 1rem;
-        margin: 1rem 0;
-    }
-    
-    .command-label {
-        font-size: 0.8rem;
-        padding: 0.2rem 0.5rem;
-    }
-    
-    .glossary-item {
-        padding: 0.75rem;
-    }
-    
-    .exercise {
-        padding: 1.25rem;
-        margin: 1.5rem 0;
-    }
-    
-    footer {
-        padding: 1.5rem 1rem;
-        margin-top: 2rem;
-    }
-}
+        @media (max-width: 375px) {
+            header h1 { font-size: 1.5rem; }
+            header p { font-size: 0.9rem; }
+            .content { padding: 1rem 0.75rem; }
+            h2 { font-size: 1.3rem; }
+            h3 { font-size: 1.2rem; }
+            .step-container { padding: 0.75rem; }
+            pre { padding: 0.75rem; font-size: 0.75rem; }
+            .grid-2 { gap: 0.75rem; }
+            ul, ol { margin-left: 1.25rem; }
+        }
 
-/* Mobile Muito Pequeno (até 375px) */
-@media (max-width: 375px) {
-    header h1 {
-        font-size: 1.5rem;
-    }
-    
-    header p {
-        font-size: 0.9rem;
-    }
-    
-    .content {
-        padding: 1rem 0.75rem;
-    }
-    
-    h2 {
-        font-size: 1.3rem;
-    }
-    
-    h3 {
-        font-size: 1.2rem;
-    }
-    
-    .step-container {
-        padding: 0.75rem;
-    }
-    
-    pre {
-        padding: 0.75rem;
-        font-size: 0.75rem;
-    }
-    
-    .grid-2 {
-        gap: 0.75rem;
-    }
-    
-    ul, ol {
-        margin-left: 1.25rem;
-    }
-}
+        @media (max-width: 768px) {
+            .syntax-card { padding: 1rem; margin: 0.75rem 0; }
+            .glossary-item dt { font-size: 1rem; }
+            .glossary-item dd { font-size: 0.9rem; margin-left: 1rem; }
+            .comparison-table { display: block; overflow-x: auto; white-space: nowrap; -webkit-overflow-scrolling: touch; }
+            .comparison-table table { min-width: 500px; }
+            button, .card, .step-container { cursor: pointer; -webkit-tap-highlight-color: transparent; }
+            .card:hover { transform: none; }
+            body { line-height: 1.6; }
+            p, li { line-height: 1.5; }
+            input, select, textarea { font-size: 16px; }
+        }
 
-/* ===== MELHORIAS ESPECÍFICAS PARA MOBILE ===== */
+        @media (max-width: 768px) and (orientation: landscape) {
+            body { padding: 0.25rem; }
+            .container { margin: 0.25rem; }
+            header { padding: 1rem; }
+            header h1 { font-size: 1.5rem; }
+        }
 
-/* Melhor legibilidade em telas pequenas */
-@media (max-width: 768px) {
-    .syntax-card {
-        padding: 1rem;
-        margin: 0.75rem 0;
-    }
-    
-    .glossary-item dt {
-        font-size: 1rem;
-    }
-    
-    .glossary-item dd {
-        font-size: 0.9rem;
-        margin-left: 1rem;
-    }
-}
+        @media (prefers-color-scheme: dark) {
+            .container { background: var(--dark); color: var(--light); }
+            .card { background: var(--dark-soft); border-color: var(--gray); color: var(--light); }
+            .syntax-card { background: var(--dark-soft); border-color: var(--gray); }
+        }
 
-/* Ajustes para tabelas em mobile */
-@media (max-width: 768px) {
-    .comparison-table {
-        display: block;
-        overflow-x: auto;
-        white-space: nowrap;
-        -webkit-overflow-scrolling: touch;
-    }
-    
-    .comparison-table table {
-        min-width: 500px;
-    }
-}
-
-/* Melhorias de toque para mobile */
-@media (max-width: 768px) {
-    button, 
-    .card,
-    .step-container {
-        cursor: pointer;
-        -webkit-tap-highlight-color: transparent;
-    }
-    
-    .card:hover {
-        transform: none; /* Remove hover effect em mobile */
-    }
-}
-
-/* Ajustes de altura de linha para melhor leitura */
-@media (max-width: 768px) {
-    body {
-        line-height: 1.6;
-    }
-    
-    p, li {
-        line-height: 1.5;
-    }
-}
-
-/* Prevenir zoom em inputs em iOS */
-@media (max-width: 768px) {
-    input, select, textarea {
-        font-size: 16px; /* Previne zoom no iOS */
-    }
-}
-
-/* ===== ORIENTAÇÃO ===== */
-
-/* Ajustes para orientação paisagem em mobile */
-@media (max-width: 768px) and (orientation: landscape) {
-    body {
-        padding: 0.25rem;
-    }
-    
-    .container {
-        margin: 0.25rem;
-    }
-    
-    header {
-        padding: 1rem;
-    }
-    
-    header h1 {
-        font-size: 1.5rem;
-    }
-}
-
-/* ===== DARK MODE SUPPORT ===== */
-
-@media (prefers-color-scheme: dark) {
-    .container {
-        background: var(--dark);
-        color: var(--light);
-    }
-    
-    .card {
-        background: var(--dark-soft);
-        border-color: var(--gray);
-        color: var(--light);
-    }
-    
-    .syntax-card {
-        background: var(--dark-soft);
-        border-color: var(--gray);
-    }
-}
-
-/* ===== IMPRESSÃO ===== */
-
-@media print {
-    body {
-        background: white !important;
-        color: black !important;
-        padding: 0 !important;
-    }
-    
-    .container {
-        box-shadow: none !important;
-        border-radius: 0 !important;
-        margin: 0 !important;
-    }
-    
-    .tip-box, .success-box, .warning-box {
-        break-inside: avoid;
-    }
-    
-    pre {
-        break-inside: avoid;
-        background: #f5f5f5 !important;
-        color: #333 !important;
-    }
-}
+        @media print {
+            body { background: white !important; color: black !important; padding: 0 !important; }
+            .container { box-shadow: none !important; border-radius: 0 !important; margin: 0 !important; }
+            .tip-box, .success-box, .warning-box { break-inside: avoid; }
+            pre { break-inside: avoid; background: #f5f5f5 !important; color: #333 !important; }
+        }
     </style>
 </head>
 <body>
@@ -796,14 +487,16 @@
                 <p>Este guia completo reúne tudo o que você precisa para começar com Django, desde a instalação até recursos avançados como autenticação, CRUD completo e boas práticas. Django é um framework Python com "baterias incluídas" - ORM, admin, sistema de templates, autenticação e muito mais!</p>
             </div>
 
-            <h2><span class="emoji">📋</span>Índice do Conteúdo</h2>
+            <h2 id="indice"><span class="emoji">📋</span>Índice do Conteúdo</h2>
             <ul>
                 <li><a href="#instalacao">Instalação e Configuração do Ambiente</a></li>
+                <li><a href="./guia_completo_django.html#seguranca">Segurança: Configurando o .env</a></li>
                 <li><a href="#django-vs-flask">Django vs Flask: Comparação Completa</a></li>
                 <li><a href="#sintaxe">Entendendo a Sintaxe do Django</a></li>
                 <li><a href="#projeto">Criando seu Primeiro Projeto</a></li>
                 <li><a href="#apps">Trabalhando com Apps</a></li>
                 <li><a href="#models">Models e Banco de Dados</a></li>
+                <li><a href="#lookups">Consultas Avançadas (Lookups)</a></li>
                 <li><a href="#migrations">Migrations: Controle de Versão do Banco</a></li>
                 <li><a href="#views">Views e URLs</a></li>
                 <li><a href="#templates">Sistema de Templates</a></li>
@@ -842,56 +535,55 @@ source .venv/bin/activate</code></pre>
             </div>
 
             <div class="step-container">
-    <h3><span class="step-number">3</span>Instalar Django e Dependências</h3>
-    <span class="command-label">pip</span>
-    <pre><code>pip install django</code></pre>
-    
-    <p>Para projetos com API REST e CORS:</p>
-    <pre><code>pip install django djangorestframework django-cors-headers python-dotenv</code></pre>
-    
-    <p>Para autenticação JWT:</p>
-    <pre><code>pip install djangorestframework-simplejwt</code></pre>
-    
-    <div class="tip-box">
-        <strong>💡 Dica IMPORTANTE:</strong>
-        Salve as dependências em um arquivo requirements.txt:
-        <code>pip freeze > requirements.txt</code>
-    </div>
-</div>
+                <h3><span class="step-number">3</span>Instalar Django e Dependências</h3>
+                <span class="command-label">pip</span>
+                <pre><code>pip install django</code></pre>
+                
+                <p>Para projetos com API REST e CORS:</p>
+                <pre><code>pip install django djangorestframework django-cors-headers python-dotenv</code></pre>
+                
+                <p>Para autenticação JWT:</p>
+                <pre><code>pip install djangorestframework-simplejwt</code></pre>
+                
+                <div class="tip-box">
+                    <strong>💡 Dica IMPORTANTE:</strong>
+                    Salve as dependências em um arquivo requirements.txt:
+                    <code>pip freeze > requirements.txt</code>
+                </div>
+            </div>
 
-<!-- NOVA SEÇÃO ADICIONADA -->
-<div class="step-container">
-    <h3><span class="step-number">3.1</span>📦 Por que usar requirements.txt?</h3>
-    
-    <h4>O que é requirements.txt?</h4>
-    <p>É um arquivo que lista TODAS as bibliotecas Python que seu projeto precisa para funcionar, com suas versões específicas.</p>
-    
-    <h4>Exemplo do conteúdo:</h4>
-    <pre><code>Django==4.2.7
+            <div class="step-container">
+                <h3><span class="step-number">3.1</span>📦 Por que usar requirements.txt?</h3>
+                
+                <h4>O que é requirements.txt?</h4>
+                <p>É um arquivo que lista TODAS as bibliotecas Python que seu projeto precisa para funcionar, com suas versões específicas.</p>
+                
+                <h4>Exemplo do conteúdo:</h4>
+                <pre><code>Django==4.2.7
 djangorestframework==3.14.0
 django-cors-headers==4.3.1
 python-dotenv==1.0.0
 Pillow==10.0.1</code></pre>
 
-    <div class="grid-2">
-        <div class="card">
-            <h3>🚀 Para Desenvolvimento</h3>
-            <p><strong>Ambientes consistentes:</strong> Garante que todos os desenvolvedores do projeto usem as mesmas versões das bibliotecas.</p>
-            <p><strong>Evita "funciona na minha máquina":</strong> Elimina problemas de versões diferentes entre ambientes.</p>
-        </div>
+                <div class="grid-2">
+                    <div class="card">
+                        <h3>🚀 Para Desenvolvimento</h3>
+                        <p><strong>Ambientes consistentes:</strong> Garante que todos os desenvolvedores do projeto usem as mesmas versões das bibliotecas.</p>
+                        <p><strong>Evita "funciona na minha máquina":</strong> Elimina problemas de versões diferentes entre ambientes.</p>
+                    </div>
 
-        <div class="card">
-            <h3>🌐 Para Produção</h3>
-            <p><strong>Deploy consistente:</strong> Servidores de produção instalam exatamente as mesmas versões do desenvolvimento.</p>
-            <p><strong>Reprodução de ambientes:</strong> Qualquer pessoa pode recriar exatamente o mesmo ambiente do projeto.</p>
-        </div>
-    </div>
+                    <div class="card">
+                        <h3>🌐 Para Produção</h3>
+                        <p><strong>Deploy consistente:</strong> Servidores de produção instalam exatamente as mesmas versões do desenvolvimento.</p>
+                        <p><strong>Reprodução de ambientes:</strong> Qualquer pessoa pode recriar exatamente o mesmo ambiente do projeto.</p>
+                    </div>
+                </div>
 
-    <h4>📋 Casos de Uso Práticos:</h4>
+                <h4>📋 Casos de Uso Práticos:</h4>
 
-    <div class="syntax-card">
-        <h4>1. Novo desenvolvedor entra no projeto:</h4>
-        <pre><code># 1. Clona o repositório
+                <div class="syntax-card">
+                    <h4>1. Novo desenvolvedor entra no projeto:</h4>
+                    <pre><code># 1. Clona o repositório
 git clone projeto-django
 cd projeto-django
 
@@ -903,75 +595,254 @@ source venv/bin/activate  # ou .\venv\Scripts\activate no Windows
 pip install -r requirements.txt
 
 # 4. Pronto! Ambiente idêntico ao dos outros devs</code></pre>
-    </div>
+                </div>
 
-    <div class="syntax-card">
-        <h4>2. Deploy em servidor:</h4>
-        <pre><code># No servidor de produção
+                <div class="syntax-card">
+                    <h4>2. Deploy em servidor:</h4>
+                    <pre><code># No servidor de produção
 git pull origin main
 pip install -r requirements.txt
 python manage.py migrate
 python manage.py collectstatic</code></pre>
-    </div>
+                </div>
 
-    <div class="syntax-card">
-        <h4>3. Problema de versão? Volte no tempo!</h4>
-        <pre><code># Se uma nova versão quebra seu projeto
+                <div class="syntax-card">
+                    <h4>3. Problema de versão? Volte no tempo!</h4>
+                    <pre><code># Se uma nova versão quebra seu projeto
 # Volte para o requirements.txt do commit anterior
 git checkout HEAD~1 -- requirements.txt
 pip install -r requirements.txt</code></pre>
-    </div>
+                </div>
 
-    <h4>⚠️ O que acontece SEM requirements.txt:</h4>
-    <div class="warning-box">
-        <ul>
-            <li><strong>"Na minha máquina funciona!"</strong> - Clássico problema de versões diferentes</li>
-            <li><strong>Quebras inesperadas</strong> - Atualização de biblioteca quebra funcionalidades</li>
-            <li><strong>Tempo perdido</strong> - Horas debugando problemas de ambiente</li>
-            <li><strong>Deploy falho</strong> - Servidor com versões incompatíveis</li>
+                <h4>⚠️ O que acontece SEM requirements.txt:</h4>
+                <div class="warning-box">
+                    <ul>
+                        <li><strong>"Na minha máquina funciona!"</strong> - Clássico problema de versões diferentes</li>
+                        <li><strong>Quebras inesperadas</strong> - Atualização de biblioteca quebra funcionalidades</li>
+                        <li><strong>Tempo perdido</strong> - Horas debugando problemas de ambiente</li>
+                        <li><strong>Deploy falho</strong> - Servidor com versões incompatíveis</li>
+                    </ul>
+                </div>
+
+                <h4>🎯 Boas Práticas:</h4>
+                <div class="success-box">
+                    <ul>
+                        <li><strong>Sempre gere requirements.txt após instalar novas dependências</strong></li>
+                        <li><strong>Commit requirements.txt no Git</strong> - É parte essencial do projeto</li>
+                        <li><strong>Use versões específicas</strong> - Evita "Django" (pega última versão), use "Django==4.2.7"</li>
+                        <li><strong>Atualize regularmente</strong> - Mas com testes! Não atualize em produção direto</li>
+                    </ul>
+                </div>
+                <h4 id="seguranca" style="margin-top: 2rem; border-top: 1px solid #e2e8f0; padding-top: 1.5rem;">🔐 Segurança Crítica: O Cofre (.env) - Protegendo Seus Segredos</h4>
+
+<div class="intro-box" style="margin: 1rem 0; padding: 1.5rem; background: linear-gradient(135deg, #fef3c7 0%, #fed7aa 100%); border-left: 5px solid #f59e0b;">
+    <p style="margin-bottom: 0.5rem;"><strong>🚨 O Conceito CRÍTICO:</strong> Seu código (GitHub) é público, mas suas senhas são PRIVADAS. Nunca salve senhas no código. Use variáveis de ambiente.</p>
+    <p style="margin: 0.5rem 0; font-size: 0.95rem;"><strong>Analogia:</strong> Imagine dar as chaves da sua casa para um estranho. O .env é seu cofre seguro onde guarda essas chaves!</p>
+</div>
+
+<div class="syntax-card" style="background: #f8fafc; border-left: 4px solid #0ea5e9;">
+    <h5 style="color: #0ea5e9;">🎯 Por que isso é TÃO importante?</h5>
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1rem; margin: 1rem 0;">
+        <div style="background: white; padding: 1rem; border-radius: 8px; border: 1px solid #e2e8f0;">
+            <strong style="color: #ef4444;">⚠️ Risco de Hackers</strong>
+            <p style="margin: 0.5rem 0 0; font-size: 0.9rem;">Senhas no GitHub = Convite para ataques. Hackers vasculham repositórios públicos diariamente.</p>
+        </div>
+        <div style="background: white; padding: 1rem; border-radius: 8px; border: 1px solid #e2e8f0;">
+            <strong style="color: #f59e0b;">💸 Custos Financeiros</strong>
+            <p style="margin: 0.5rem 0 0; font-size: 0.9rem;">AWS/Banco de dados comprometidos podem gerar custos astronômicos.</p>
+        </div>
+        <div style="background: white; padding: 1rem; border-radius: 8px; border: 1px solid #e2e8f0;">
+            <strong style="color: #10b981;">🔒 Proteção Legal</strong>
+            <p style="margin: 0.5rem 0 0; font-size: 0.9rem;">Dados de usuários vazados = Problemas legais graves (LGPD/GDPR).</p>
+        </div>
+    </div>
+</div>
+
+<div class="syntax-card">
+    <h5>📦 Passo A: Instalar o "Porteiro" - python-dotenv</h5>
+    <p>Esta biblioteca é o segurança que controla quem acessa suas variáveis:</p>
+    <pre style="margin: 0.5rem 0; background: #1e1e2e; padding: 1rem; border-radius: 8px;"><code style="color: #a6e3a1;">pip install python-dotenv</code></pre>
+    <div class="tip-box" style="margin: 0.5rem 0; padding: 0.75rem; background: #d1fae5; border-left: 4px solid #10b981;">
+        <strong>💡 Dica Pro:</strong> Adicione também ao requirements.txt: <code>pip freeze > requirements.txt</code>
+    </div>
+</div>
+
+<div class="syntax-card">
+    <h5>🏦 Passo B: Criar o Cofre (.env) - Seu Arquivo Secreto</h5>
+    <p>Crie um arquivo chamado <code>.env</code> na raiz do projeto (mesmo nível do manage.py):</p>
+    <pre style="margin: 0.5rem 0; background: #1e1e2e; padding: 1rem; border-radius: 8px;"><code style="color: #cdd6f4;"># 🔐 CHAVES DE SEGURANÇA (NUNCA COMPARTILHE!)
+SECRET_KEY=django-insecure-sua-chave-super-secreta-aqui-2024!
+DEBUG=True
+
+# 🗄️ BANCO DE DADOS
+DB_NAME=meu_banco
+DB_USER=usuario_admin
+DB_PASSWORD=senha_super_forte_123!
+DB_HOST=localhost
+DB_PORT=5432
+
+# 📧 CONFIGURAÇÕES DE EMAIL
+EMAIL_HOST=smtp.gmail.com
+EMAIL_PORT=587
+EMAIL_USER=meuemail@gmail.com
+EMAIL_PASSWORD=senha_do_app_gmail
+
+# 🌐 API EXTERNAS
+STRIPE_SECRET_KEY=sk_test_...
+GOOGLE_MAPS_API_KEY=AIzaSyB...
+AWS_ACCESS_KEY_ID=AKIA...</code></pre>
+    
+    <div class="warning-box" style="margin: 1rem 0; padding: 1rem; background: #fee2e2; border-left: 4px solid #ef4444;">
+        <strong>🚨 CRÍTICO - AÇÃO IMEDIATA REQUERIDA:</strong>
+        <p style="margin: 0.5rem 0;">Adicione <code>.env</code> ao seu arquivo <code>.gitignore</code> AGORA MESMO!</p>
+        <pre style="margin: 0.5rem 0; background: #fecaca; padding: 0.5rem; border-radius: 4px;"><code># No arquivo .gitignore, adicione:
+.env
+*.env
+.env.local
+.env.production</code></pre>
+        <p style="margin: 0.5rem 0 0; font-size: 0.9rem;"><strong>Verificação:</strong> Execute <code>git status</code> - o .env NÃO deve aparecer na lista!</p>
+    </div>
+</div>
+
+<div class="syntax-card">
+    <h5>⚙️ Passo C: Configurar settings.py - Conectando o Cofre</h5>
+    <p>No topo do seu <code>settings.py</code>, adicione:</p>
+    <pre style="margin: 0.5rem 0; background: #1e1e2e; padding: 1rem; border-radius: 8px;"><code style="color: #cdd6f4;">import os
+from dotenv import load_dotenv
+
+# 🗝️ Carrega as variáveis do cofre .env
+load_dotenv()
+
+# 🔐 SEGURANÇA - Substitua a chave fixa
+SECRET_KEY = os.getenv('SECRET_KEY', 'chave-fallback-caso-erro')
+
+# 🎯 CONFIGURAÇÕES DINÂMICAS
+DEBUG = os.getenv('DEBUG', 'False') == 'True'
+
+# 🗄️ BANCO DE DADOS SEGURO
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': os.getenv('DB_NAME', 'meu_banco'),
+        'USER': os.getenv('DB_USER', ''),
+        'PASSWORD': os.getenv('DB_PASSWORD', ''),
+        'HOST': os.getenv('DB_HOST', 'localhost'),
+        'PORT': os.getenv('DB_PORT', '5432'),
+    }
+}
+
+# 📧 EMAIL SEGURO
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = os.getenv('EMAIL_HOST')
+EMAIL_PORT = int(os.getenv('EMAIL_PORT', 587))
+EMAIL_USE_TLS = True
+EMAIL_HOST_USER = os.getenv('EMAIL_USER')
+EMAIL_HOST_PASSWORD = os.getenv('EMAIL_PASSWORD')</code></pre>
+
+    <div class="tip-box" style="margin: 0.5rem 0; padding: 0.75rem; background: #e0f2fe; border-left: 4px solid #0ea5e9;">
+        <strong>🔧 Boa Prática:</strong> Sempre forneça um valor padrão com <code>os.getenv('VARIAVEL', 'valor_padrao')</code> para evitar erros se a variável não existir.
+    </div>
+</div>
+
+<div class="syntax-card">
+    <h5>🔍 Teste de Segurança: Verifique Se Está Funcionando</h5>
+    <p>Abra o shell do Django para testar:</p>
+    <pre style="margin: 0.5rem 0; background: #1e1e2e; padding: 1rem; border-radius: 8px;"><code style="color: #cdd6f4;">python manage.py shell</code></pre>
+    <p>No shell, execute:</p>
+    <pre style="margin: 0.5rem 0; background: #1e1e2e; padding: 1rem; border-radius: 8px;"><code style="color: #cdd6f4;">import os
+from django.conf import settings
+
+print("SECRET_KEY carregada?", bool(settings.SECRET_KEY))
+print("DEBUG está:", settings.DEBUG)
+print("DB_NAME:", os.getenv('DB_NAME'))</code></pre>
+    <p>Se tudo mostrar valores (não None), está funcionando! 🎉</p>
+</div>
+
+<div class="grid-2" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1rem; margin: 1.5rem 0;">
+    <div style="background: #dcfce7; padding: 1.5rem; border-radius: 12px; border-left: 4px solid #16a34a;">
+        <h6 style="color: #15803d; margin: 0 0 1rem 0;">✅ O QUE FAZER</h6>
+        <ul style="margin: 0; color: #15803d;">
+            <li>Usar .env para TODAS as senhas</li>
+            <li>Adicionar .env ao .gitignore</li>
+            <li>Usar valores padrão seguros</li>
+            <li>Documentar as variáveis necessárias</li>
         </ul>
     </div>
-
-    <h4>🎯 Boas Práticas:</h4>
-    <div class="success-box">
-        <ul>
-            <li><strong>Sempre gere requirements.txt após instalar novas dependências</strong></li>
-            <li><strong>Commit requirements.txt no Git</strong> - É parte essencial do projeto</li>
-            <li><strong>Use versões específicas</strong> - Evita "Django" (pega última versão), use "Django==4.2.7"</li>
-            <li><strong>Atualize regularmente</strong> - Mas com testes! Não atualize em produção direto</li>
-        </ul>
-    </div>
-
-    <h4>🔄 Comandos Úteis:</h4>
-    <div class="grid-2">
-        <div class="glossary-item">
-            <dt>pip freeze > requirements.txt</dt>
-            <dd>Gera/atualiza o arquivo com todas as dependências atuais</dd>
-        </div>
-        <div class="glossary-item">
-            <dt>pip install -r requirements.txt</dt>
-            <dd>Instala todas as dependências do arquivo</dd>
-        </div>
-        <div class="glossary-item">
-            <dt>pip list</dt>
-            <dd>Mostra todas as bibliotecas instaladas no ambiente</dd>
-        </div>
-        <div class="glossary-item">
-            <dt>pip show nome-biblioteca</dt>
-            <dd>Mostra informações de uma biblioteca específica</dd>
-        </div>
-    </div>
-
-    <div class="tip-box">
-        <strong>💡 Dica Pro:</strong>
-        Para projetos mais complexos, use <code>requirements</code> separados:
-        <ul>
-            <li><code>requirements-dev.txt</code> - Dependências só para desenvolvimento</li>
-            <li><code>requirements-prod.txt</code> - Dependências só para produção</li>
-            <li><code>requirements-test.txt</code> - Dependências para testes</li>
+    <div style="background: #fecaca; padding: 1.5rem; border-radius: 12px; border-left: 4px solid #dc2626;">
+        <h6 style="color: #dc2626; margin: 0 0 1rem 0;">❌ O QUE NUNCA FAZER</h6>
+        <ul style="margin: 0; color: #dc2626;">
+            <li>Comitar .env no Git</li>
+            <li>Usar senhas fracas</li>
+            <li>Compartilhar .env por email</li>
+            <li>Deixar DEBUG=True em produção</li>
         </ul>
     </div>
 </div>
+
+<div class="tip-box" style="margin: 1rem 0; padding: 1.5rem; background: linear-gradient(135deg, #ddd6fe 0%, #c7d2fe 100%); border-left: 4px solid #8b5cf6;">
+    <strong>☁️ Na Nuvem (Deploy):</strong>
+    <p style="margin: 0.5rem 0;">Como o <code>.env</code> não sobe para o GitHub, configure as mesmas variáveis no painel do seu servidor:</p>
+    
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; margin: 1rem 0;">
+        <div style="background: white; padding: 1rem; border-radius: 8px;">
+            <strong>Render.com</strong>
+            <p style="margin: 0.5rem 0 0; font-size: 0.9rem;">Environment → Environment Variables</p>
+        </div>
+        <div style="background: white; padding: 1rem; border-radius: 8px;">
+            <strong>Heroku</strong>
+            <p style="margin: 0.5rem 0 0; font-size: 0.9rem;">Settings → Config Vars</p>
+        </div>
+        <div style="background: white; padding: 1rem; border-radius: 8px;">
+            <strong>AWS</strong>
+            <p style="margin: 0.5rem 0 0; font-size: 0.9rem;">Parameter Store ou Secrets Manager</p>
+        </div>
+    </div>
+    
+    <p style="margin: 0.5rem 0 0; font-size: 0.9rem;"><strong>Dica:</strong> Crie um arquivo <code>.env.example</code> no GitHub mostrando quais variáveis são necessárias, mas SEM os valores reais!</p>
+</div>
+
+<div class="warning-box" style="margin: 1rem 0; padding: 1rem; background: #fef3c7; border-left: 4px solid #f59e0b;">
+    <strong>📚 Próximo Nível de Segurança:</strong>
+    <p style="margin: 0.5rem 0;">Para projetos empresariais, considere:</p>
+    <ul style="margin: 0.5rem 0 0 1.5rem;">
+        <li><strong>django-environ</strong> - Versão mais robusta do python-dotenv</li>
+        <li><strong>Azure Key Vault / AWS Secrets Manager</strong> - Para segredos em escala</li>
+        <li><strong>Hashicorp Vault</strong> - Sistema enterprise de gerenciamento de segredos</li>
+    </ul>
+</div>
+
+<hr style="border: 0; border-top: 2px dashed #cbd5e1; margin: 2rem 0;">
+
+                <h4>🔄 Comandos Úteis:</h4>
+                <div class="grid-2">
+                    <div class="glossary-item">
+                        <dt>pip freeze > requirements.txt</dt>
+                        <dd>Gera/atualiza o arquivo com todas as dependências atuais</dd>
+                    </div>
+                    <div class="glossary-item">
+                        <dt>pip install -r requirements.txt</dt>
+                        <dd>Instala todas as dependências do arquivo</dd>
+                    </div>
+                    <div class="glossary-item">
+                        <dt>pip list</dt>
+                        <dd>Mostra todas as bibliotecas instaladas no ambiente</dd>
+                    </div>
+                    <div class="glossary-item">
+                        <dt>pip show nome-biblioteca</dt>
+                        <dd>Mostra informações de uma biblioteca específica</dd>
+                    </div>
+                </div>
+
+                <div class="tip-box">
+                    <strong>💡 Dica Pro:</strong>
+                    Para projetos mais complexos, use <code>requirements</code> separados:
+                    <ul>
+                        <li><code>requirements-dev.txt</code> - Dependências só para desenvolvimento</li>
+                        <li><code>requirements-prod.txt</code> - Dependências só para produção</li>
+                        <li><code>requirements-test.txt</code> - Dependências para testes</li>
+                    </ul>
+                </div>
+            </div>
 
             <h2 id="django-vs-flask"><span class="emoji">⚖️</span>Django vs Flask: Comparação Completa</h2>
             
@@ -1025,8 +896,13 @@ pip install -r requirements.txt</code></pre>
                     </tr>
                     <tr>
                         <td><strong>Arquitetura</strong></td>
-                        <td>Manual, o programador define tudo</td>
-                        <td>Estruturada em apps independentes</td>
+                        <td>Manual, o programador define tudo </td>
+                        <td>Estruturada em apps independentes </td>
+                    </tr>
+                    <tr>
+                        <td><strong>Filosofia de Views</strong></td>
+                        <td>Rota decorada na função </td>
+                        <td>Rotas e Views separadas em arquivos </td>
                     </tr>
                 </tbody>
             </table>
@@ -1062,7 +938,7 @@ pip install -r requirements.txt</code></pre>
                 <p>No Django, existe a ideia de <span class="highlight">App</span> e <span class="highlight">Projeto</span>:</p>
                 <ul>
                     <li><strong>Projeto:</strong> Container de todos os apps + configurações globais</li>
-                    <li><strong>App:</strong> Módulo específico com funcionalidade única</li>
+                    <li><strong>App:</strong> Módulo específico com funcionalidade única </li>
                 </ul>
                 
                 <div class="tip-box">
@@ -1104,7 +980,7 @@ pip install -r requirements.txt</code></pre>
                 
                 <div class="warning-box">
                     <strong>⚠️ Atenção:</strong>
-                    No Django, "View" é o que seria "Controller" em outros frameworks!
+                    No Django, "View" é o que seria "Controller" em outros frameworks! 
                 </div>
             </div>
 
@@ -1330,6 +1206,48 @@ class Post(models.Model):
                 </div>
             </div>
 
+            <h2 id="lookups"><span class="emoji">🔎</span>Consultas Avançadas (Lookups)</h2>
+            
+            <div class="intro-box">
+                <h3>Operadores de Filtro</h3>
+                <p>O Django permite realizar consultas complexas usando "Lookups" adicionados ao nome do campo com dois sublinhados (<code>__</code>). Exemplos extraídos da documentação:</p>
+            </div>
+
+            <div class="grid-2">
+                <div class="syntax-card">
+                    <h4>Comparação de Texto</h4>
+                    <pre><code># Exato (case-sensitive)
+Usuario.objects.filter(nome='João')
+
+# Exato (case-insensitive)
+Usuario.objects.filter(nome__iexact='joão')
+
+# Contém (LIKE '%jo%')
+Usuario.objects.filter(nome__contains='jo')
+
+# Começa com
+Usuario.objects.filter(nome__startswith='J')
+
+# Termina com
+Usuario.objects.filter(nome__endswith='Silva')</code></pre>
+                </div>
+
+                <div class="syntax-card">
+                    <h4>Comparação Numérica e Lógica</h4>
+                    <pre><code># Maior que (Greater Than)
+Usuario.objects.filter(id__gt=10)
+
+# Menor que (Lower Than)
+Usuario.objects.filter(id__lt=100)
+
+# Entre valores (Range)
+Usuario.objects.filter(id__range=(10, 20))
+
+# Está na lista (IN)
+Usuario.objects.filter(id__in=[1, 2, 3])</code></pre>
+                </div>
+            </div>
+
             <h2 id="migrations"><span class="emoji">🔄</span>Migrations: Controle de Versão do Banco</h2>
 
             <div class="intro-box">
@@ -1419,25 +1337,80 @@ class PostAdmin(admin.ModelAdmin):
 
             <h2 id="views"><span class="emoji">🎨</span>Views e URLs</h2>
             
-            <p>Views são funções (ou classes) que recebem requisições HTTP e retornam respostas.</p>
+            <p>Views são funções (Function-Based Views) ou classes que recebem requisições HTTP e retornam respostas. Elas são o ponto central da lógica de cada rota.</p>
 
             <div class="step-container">
-                <h3><span class="step-number">20</span>Criar Views</h3>
+                <h3><span class="step-number">20</span>Anatomia da Request e View</h3>
+                <p>Toda view recebe obrigatoriamente um objeto <code>request</code> como primeiro argumento. Ele contém tudo sobre a requisição:</p>
+                
+                <table class="comparison-table">
+                    <thead>
+                        <tr>
+                            <th>Atributo</th>
+                            <th>Descrição</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><code>request.method</code></td>
+                            <td>Método HTTP utilizado (GET, POST, PUT, DELETE).</td>
+                        </tr>
+                        <tr>
+                            <td><code>request.GET</code></td>
+                            <td>Dados passados na URL (Query Parameters). Ex: <code>?nome=valor</code>.</td>
+                        </tr>
+                        <tr>
+                            <td><code>request.POST</code></td>
+                            <td>Dados enviados via formulário HTML.</td>
+                        </tr>
+                        <tr>
+                            <td><code>request.user</code></td>
+                            <td>Objeto do usuário atual (se autenticado) ou AnonymousUser.</td>
+                        </tr>
+                        <tr>
+                            <td><code>request.body</code></td>
+                            <td>Corpo bruto da requisição (útil para JSON/APIs).</td>
+                        </tr>
+                    </tbody>
+                </table>
+
                 <p>No arquivo <code>blog/views.py</code>:</p>
                 <pre><code>from django.shortcuts import render, get_object_or_404
+from django.http import HttpResponse
 from .models import Post
 
 def lista_posts(request):
+    # Lógica da view...
     posts = Post.objects.all()
-    return render(request, 'blog/lista_posts.html', {'posts': posts})
-
-def post_detail(request, pk):
-    post = get_object_or_404(Post, pk=pk)
-    return render(request, 'blog/post_detail.html', {'post': post})</code></pre>
+    return render(request, 'blog/lista_posts.html', {'posts': posts})</code></pre>
             </div>
 
             <div class="step-container">
-                <h3><span class="step-number">21</span>Comparação: Flask vs Django Views</h3>
+                <h3><span class="step-number">21</span>Sistema de URLs e Parâmetros</h3>
+                <p>O Django permite capturar partes da URL e enviá-las como argumentos para a view usando conversores (Path Converters).</p>
+                
+                <div class="syntax-card">
+                    <h4>Tipos de Conversores de URL</h4>
+                    <ul>
+                        <li><code>&lt;int:id&gt;</code>: Aceita apenas inteiros (ex: <code>/produtos/10/</code>).</li>
+                        <li><code>&lt;str:nome&gt;</code>: Aceita qualquer string, exceto o separador <code>/</code>.</li>
+                        <li><code>&lt;slug:slug&gt;</code>: Aceita letras, números, hífens e underscores (ex: <code>/posts/meu-primeiro-post/</code>).</li>
+                        <li><code>&lt;uuid:id&gt;</code>: Aceita identificadores únicos universais (UUID).</li>
+                        <li><code>&lt;path:caminho&gt;</code>: Captura tudo, incluindo barras <code>/</code> (ex: arquivos aninhados).</li>
+                    </ul>
+                </div>
+
+                <div class="warning-box">
+                    <strong>Query Parameters (GET):</strong>
+                    <p>Parâmetros opcionais como <code>/buscar?cidade=rio&idade=20</code> não precisam ser definidos no <code>urls.py</code> Você os acessa direto na view:</p>
+                    <pre><code>def buscar(request):
+    cidade = request.GET.get("cidade") # Retorna None se não existir
+    return HttpResponse(f"Buscando cidade: {cidade}")</code></pre>
+                </div>
+            </div>
+
+            <div class="step-container">
+                <h3><span class="step-number">22</span>Comparação: Flask vs Django Views</h3>
                 
                 <h4>Flask:</h4>
                 <pre><code>from flask import Flask, jsonify
@@ -1468,7 +1441,7 @@ urlpatterns = [
             </div>
 
             <div class="step-container">
-                <h3><span class="step-number">22</span>Configurar URLs do App</h3>
+                <h3><span class="step-number">23</span>Configurar URLs do App</h3>
                 <p>Crie o arquivo <code>blog/urls.py</code>:</p>
                 <pre><code>from django.urls import path
 from . import views
@@ -1480,7 +1453,7 @@ urlpatterns = [
             </div>
 
             <div class="step-container">
-                <h3><span class="step-number">23</span>Incluir no Projeto</h3>
+                <h3><span class="step-number">24</span>Incluir no Projeto</h3>
                 <p>No arquivo <code>meu_site/urls.py</code>:</p>
                 <pre><code>from django.contrib import admin
 from django.urls import path, include
@@ -1492,9 +1465,9 @@ urlpatterns = [
             </div>
 
             <div class="step-container">
-                <h3><span class="step-number">24</span>Fluxo de Requisição no Django</h3>
+                <h3><span class="step-number">25</span>Fluxo de Requisição no Django</h3>
                 <ol>
-                    <li>Usuário acessa: <code>http://localhost:8080/</code></li>
+                    <li>Usuário acessa: <code>http://localhost:8000/</code></li>
                     <li>Django procura em: <code>geovannis_pizza/urls.py</code></li>
                     <li>Encontra: <code>path("", include('usuarios.urls'))</code></li>
                     <li>Vai para: <code>usuarios/urls.py</code></li>
@@ -1507,7 +1480,7 @@ urlpatterns = [
             <h2 id="templates"><span class="emoji">🖼️</span>Sistema de Templates</h2>
 
             <div class="step-container">
-                <h3><span class="step-number">25</span>Configurar Pasta de Templates</h3>
+                <h3><span class="step-number">26</span>Configurar Pasta de Templates</h3>
                 <p>No arquivo <code>settings.py</code>:</p>
                 <pre><code>import os
 
@@ -1523,7 +1496,7 @@ TEMPLATES = [
             </div>
 
             <div class="step-container">
-                <h3><span class="step-number">26</span>Criar Template de Lista</h3>
+                <h3><span class="step-number">27</span>Criar Template de Lista</h3>
                 <p>Arquivo <code>templates/blog/lista_posts.html</code>:</p>
                 <pre><code>&lt;!DOCTYPE html&gt;
 &lt;html lang="pt-BR"&gt;
@@ -1549,7 +1522,7 @@ TEMPLATES = [
             </div>
 
             <div class="step-container">
-                <h3><span class="step-number">27</span>Template de Detalhes</h3>
+                <h3><span class="step-number">28</span>Template de Detalhes</h3>
                 <p>Arquivo <code>templates/blog/post_detail.html</code>:</p>
                 <pre><code>&lt;!DOCTYPE html&gt;
 &lt;html lang="pt-BR"&gt;
@@ -1568,9 +1541,18 @@ TEMPLATES = [
             </div>
 
             <h2 id="forms"><span class="emoji">📝</span>Formulários</h2>
+            
+            <div class="intro-box">
+                <h3>Métodos HTTP: GET vs POST</h3>
+                <p>No Django, a mesma URL e View frequentemente lidam com exibir o formulário (GET) e processar os dados (POST). É fundamental checar o <code>request.method</code>.</p>
+                <ul>
+                    <li><strong>GET:</strong> Usado para consultar/exibir. Dados visíveis na URL.</li>
+                    <li><strong>POST:</strong> Usado para enviar/criar. Dados no corpo da requisição. Requer CSRF Token.</li>
+                </ul>
+            </div>
 
             <div class="step-container">
-                <h3><span class="step-number">28</span>Criar Formulário</h3>
+                <h3><span class="step-number">29</span>Criar Formulário</h3>
                 <p>Crie o arquivo <code>blog/forms.py</code>:</p>
                 <pre><code>from django import forms
 from .models import Post
@@ -1586,24 +1568,28 @@ class PostForm(forms.ModelForm):
             </div>
 
             <div class="step-container">
-                <h3><span class="step-number">29</span>View para Criar Post</h3>
-                <p>No arquivo <code>blog/views.py</code>:</p>
+                <h3><span class="step-number">30</span>View para Criar Post (Lógica GET/POST)</h3>
+                <p>No arquivo <code>blog/views.py</code>, observe como a lógica é separada pelo método:</p>
                 <pre><code>from django.shortcuts import render, redirect
 from .forms import PostForm
 
 def criar_post(request):
+    # Se o usuário enviou dados (clicou em Salvar) - POST
     if request.method == 'POST':
         form = PostForm(request.POST)
         if form.is_valid():
             form.save()
             return redirect('lista_posts')
+            
+    # Se o usuário está apenas acessando a página - GET
     else:
-        form = PostForm()
+        form = PostForm() # Formulário vazio
+        
     return render(request, 'blog/criar_post.html', {'form': form})</code></pre>
             </div>
 
             <div class="step-container">
-                <h3><span class="step-number">30</span>Template do Formulário</h3>
+                <h3><span class="step-number">31</span>Template do Formulário</h3>
                 <p>Arquivo <code>templates/blog/criar_post.html</code>:</p>
                 <pre><code>&lt;!DOCTYPE html&gt;
 &lt;html lang="pt-BR"&gt;
@@ -1632,7 +1618,7 @@ def criar_post(request):
             <p>Vamos implementar as operações de Edição e Exclusão para completar o CRUD:</p>
 
             <div class="step-container">
-                <h3><span class="step-number">31</span>Operações CRUD no Django</h3>
+                <h3><span class="step-number">32</span>Operações CRUD no Django</h3>
                 
                 <h4>Criação:</h4>
                 <ul>
@@ -1661,7 +1647,7 @@ def criar_post(request):
             </div>
 
             <div class="step-container">
-                <h3><span class="step-number">32</span>View de Edição</h3>
+                <h3><span class="step-number">33</span>View de Edição</h3>
                 <p>No arquivo <code>blog/views.py</code>:</p>
                 <pre><code>def editar_post(request, pk):
     post = get_object_or_404(Post, pk=pk)
@@ -1676,7 +1662,7 @@ def criar_post(request):
             </div>
 
             <div class="step-container">
-                <h3><span class="step-number">33</span>View de Exclusão</h3>
+                <h3><span class="step-number">34</span>View de Exclusão</h3>
                 <pre><code>def excluir_post(request, pk):
     post = get_object_or_404(Post, pk=pk)
     if request.method == 'POST':
@@ -1686,7 +1672,7 @@ def criar_post(request):
             </div>
 
             <div class="step-container">
-                <h3><span class="step-number">34</span>Atualizar URLs</h3>
+                <h3><span class="step-number">35</span>Atualizar URLs</h3>
                 <p>No arquivo <code>blog/urls.py</code>:</p>
                 <pre><code>urlpatterns = [
     path('', views.lista_posts, name='lista_posts'),
@@ -1698,7 +1684,7 @@ def criar_post(request):
             </div>
 
             <div class="step-container">
-                <h3><span class="step-number">35</span>Template de Confirmação de Exclusão</h3>
+                <h3><span class="step-number">36</span>Template de Confirmação de Exclusão</h3>
                 <p>Arquivo <code>templates/blog/confirmar_exclusao.html</code>:</p>
                 <pre><code>&lt;!DOCTYPE html&gt;
 &lt;html lang="pt-BR"&gt;
@@ -1723,13 +1709,13 @@ def criar_post(request):
             <p>Django possui um sistema completo de autenticação já incluído. Vamos implementá-lo:</p>
 
             <div class="step-container">
-                <h3><span class="step-number">36</span>Criar App de Autenticação</h3>
+                <h3><span class="step-number">37</span>Criar App de Autenticação</h3>
                 <pre><code>python manage.py startapp account</code></pre>
                 <p>Adicione <code>'account',</code> em <code>INSTALLED_APPS</code> no <code>settings.py</code>.</p>
             </div>
 
             <div class="step-container">
-                <h3><span class="step-number">37</span>View de Registro</h3>
+                <h3><span class="step-number">38</span>View de Registro</h3>
                 <p>No arquivo <code>account/views.py</code>:</p>
                 <pre><code>from django.contrib.auth.forms import UserCreationForm
 from django.urls import reverse_lazy
@@ -1742,7 +1728,7 @@ class RegisterView(generic.CreateView):
             </div>
 
             <div class="step-container">
-                <h3><span class="step-number">38</span>View de Login Customizada (Opcional)</h3>
+                <h3><span class="step-number">39</span>View de Login Customizada (Opcional)</h3>
                 <p>Se preferir uma view customizada:</p>
                 <pre><code>from django.contrib.auth import authenticate, login
 from django.shortcuts import render, redirect
@@ -1762,7 +1748,7 @@ def custom_login(request):
             </div>
 
             <div class="step-container">
-                <h3><span class="step-number">39</span>View de Logout</h3>
+                <h3><span class="step-number">40</span>View de Logout</h3>
                 <pre><code>from django.contrib.auth import logout
 
 def custom_logout(request):
@@ -1771,7 +1757,7 @@ def custom_logout(request):
             </div>
 
             <div class="step-container">
-                <h3><span class="step-number">40</span>URLs de Autenticação</h3>
+                <h3><span class="step-number">41</span>URLs de Autenticação</h3>
                 <p>Crie <code>account/urls.py</code>:</p>
                 <pre><code>from django.urls import path
 from django.contrib.auth import views as auth_views
@@ -1792,7 +1778,7 @@ urlpatterns = [
             </div>
 
             <div class="step-container">
-                <h3><span class="step-number">41</span>Templates de Autenticação</h3>
+                <h3><span class="step-number">42</span>Templates de Autenticação</h3>
                 
                 <h4>Template de Registro (<code>templates/account/register.html</code>):</h4>
                 <pre><code>&lt;!DOCTYPE html&gt;
@@ -1836,7 +1822,7 @@ urlpatterns = [
             </div>
 
             <div class="step-container">
-                <h3><span class="step-number">42</span>Proteger Views com Login</h3>
+                <h3><span class="step-number">43</span>Proteger Views com Login</h3>
                 <p>Use o decorator <code>@login_required</code>:</p>
                 <pre><code>from django.contrib.auth.decorators import login_required
 
@@ -1852,7 +1838,7 @@ def editar_post(request, pk):
             </div>
 
             <div class="step-container">
-                <h3><span class="step-number">43</span>Configurações no settings.py</h3>
+                <h3><span class="step-number">44</span>Configurações no settings.py</h3>
                 <pre><code># Configurações de autenticação
 LOGIN_URL = 'login'
 LOGIN_REDIRECT_URL = '/'
@@ -1863,7 +1849,7 @@ EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'</code></pre>
             </div>
 
             <div class="step-container">
-                <h3><span class="step-number">44</span>Recuperação de Senha</h3>
+                <h3><span class="step-number">45</span>Recuperação de Senha</h3>
                 <p>Adicione as URLs de recuperação em <code>account/urls.py</code>:</p>
                 <pre><code>urlpatterns += [
     path('password_reset/', 
@@ -1882,7 +1868,7 @@ EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'</code></pre>
             </div>
 
             <div class="step-container">
-                <h3><span class="step-number">45</span>Proteção por Permissões</h3>
+                <h3><span class="step-number">46</span>Proteção por Permissões</h3>
                 <p>Para controle mais fino de acesso:</p>
                 <pre><code>from django.contrib.auth.decorators import permission_required
 
@@ -1902,7 +1888,7 @@ def publicar_post(request, pk):
             </div>
 
             <div class="step-container">
-                <h3><span class="step-number">46</span>Exibir Conteúdo Condicional no Template</h3>
+                <h3><span class="step-number">47</span>Exibir Conteúdo Condicional no Template</h3>
                 <pre><code>&lt;!-- Mostrar menu apenas para usuários autenticados --&gt;
 {% if user.is_authenticated %}
     &lt;p&gt;Bem-vindo, {{ user.username }}!&lt;/p&gt;
@@ -2030,6 +2016,71 @@ def publicar_post(request, pk):
                     <dt>python manage.py check</dt>
                     <dd>Verifica problemas no projeto</dd>
                 </div>
+
+                <div class="glossary-item">
+                    <dt>python manage.py sqlmigrate &lt;app&gt; &lt;migration&gt;</dt>
+                    <dd>Exibe o código SQL exato que será executado por uma migration específica. Essencial para debugar erros de banco de dados ou auditar o que o Django está fazendo.</dd>
+                </div>
+
+                <div class="glossary-item">
+                    <dt>python manage.py flush</dt>
+                    <dd>Remove todos os dados do banco de dados, mas mantém as tabelas e estrutura intactas. Útil para resetar o ambiente de desenvolvimento.</dd>
+                </div>
+
+                <div class="glossary-item">
+                    <dt>python manage.py inspectdb</dt>
+                    <dd>Faz engenharia reversa de um banco de dados existente e gera o código dos Models automaticamente. Perfeito para integrar Django em bancos legados.</dd>
+                </div>
+
+                <div class="glossary-item">
+                    <dt>python manage.py diffsettings</dt>
+                    <dd>Mostra as diferenças entre as configurações atuais (settings.py) e as configurações padrão do Django. Ótimo para debugar problemas de configuração.</dd>
+                </div>
+
+                <div class="glossary-item">
+                    <dt>python manage.py makemessages</dt>
+                    <dd>Varre todo o código fonte procurando strings marcadas para tradução e cria arquivos .po para edição.</dd>
+                </div>
+
+                <div class="glossary-item">
+                    <dt>python manage.py compilemessages</dt>
+                    <dd>Compila os arquivos de tradução (.po) criados pelo makemessages em arquivos binários (.mo) que o Django consegue ler rapidamente.</dd>
+                </div>
+
+                <div class="glossary-item">
+                    <dt>python manage.py squashmigrations &lt;app&gt;</dt>
+                    <dd>Funde várias migrations antigas em uma única migration otimizada. Ajuda a manter o projeto limpo após muitas alterações no banco.</dd>
+                </div>
+
+                <div class="glossary-item">
+                    <dt>python manage.py optimizemigration &lt;app&gt; &lt;migration&gt;</dt>
+                    <dd>Tenta otimizar as operações dentro de uma migration específica, reduzindo o número de passos executados no banco.</dd>
+                </div>
+
+                <div class="glossary-item">
+                    <dt>python manage.py createcachetable</dt>
+                    <dd>Cria a tabela de cache no banco de dados, necessário apenas se você configurou o 'DatabaseCache' no settings.py.</dd>
+                </div>
+
+                <div class="glossary-item">
+                    <dt>python manage.py testserver &lt;fixture&gt;</dt>
+                    <dd>Roda um servidor de desenvolvimento (runserver) mas usando um banco de dados temporário carregado com dados de uma fixture específica.</dd>
+                </div>
+
+                <div class="glossary-item">
+                    <dt>python manage.py sendtestemail</dt>
+                    <dd>Envia um e-mail de teste para verificar se as configurações de e-mail (SMTP) do projeto estão funcionando corretamente.</dd>
+                </div>
+
+                <div class="glossary-item">
+                    <dt>python manage.py sqlflush</dt>
+                    <dd>Imprime os comandos SQL que seriam executados pelo comando 'flush', sem executá-los de fato.</dd>
+                </div>
+
+                <div class="glossary-item">
+                    <dt>python manage.py sqlsequencereset &lt;app&gt;</dt>
+                    <dd>Gera o SQL necessário para resetar as sequências (IDs autoincrementais) do banco. Útil quando há erros de integridade ao importar dados manualmente.</dd>
+                </div>
             </div>
 
             <h2><span class="emoji">🎓</span>Conceitos Importantes</h2>
@@ -2138,17 +2189,17 @@ def publicar_post(request, pk):
             <div class="success-box">
                 <h3>Links Úteis:</h3>
                 <ul>
-                    <li><strong>Documentação Oficial:</strong> docs.djangoproject.com</li>
-                    <li><strong>Django Girls Tutorial:</strong> tutorial.djangogirls.org</li>
-                    <li><strong>Hora de Codar (Matheus Battisti):</strong> Canal YouTube com curso completo</li>
-                    <li><strong>TreinaWeb:</strong> Vídeos práticos sobre Django</li>
-                    <li><strong>Real Python:</strong> Tutoriais avançados de Django</li>
+                    <li><strong><a href="https://docs.djangoproject.com/en/5.2/" target="_blank">Documentação Oficial:</a></strong> docs.djangoproject.com</li>
+                    <li><strong><a href="https://tutorial.djangogirls.org/pt/#tutorial-django-girls" target="_blank">Tutorial Django Girls:</a></strong> Para quem está começando com Python e Django</li>
+                    <li><strong><a href="https://www.youtube.com/@MatheusBattisti/courses" target="_blank">Hora de Codar (Matheus Battisti):</a></strong> Canal YouTube com curso completo</li>
+                    <li><strong><a href="https://www.youtube.com/watch?v=rwSHQqQWGnI&list=PLZ5WLsqE1WPGPA0Z0H1XB8P6UwgTHOSaf" target="_blank">TreinaWeb:</a></strong> Vídeos práticos sobre Django</li>
+                    <li><strong><a href="https://www.youtube.com/@realpython" target="_blank">Real Python:</a></strong> Tutoriais avançados de Django</li>
                 </ul>
             </div>
 
             <div class="tip-box">
                 <strong>💡 Dica Final:</strong>
-                <p>A melhor forma de aprender Django é praticando! Crie projetos reais, experimente novos recursos e não tenha medo de errar. Os erros são seus melhores professores. Eyvallah! 🎉</p>
+                <p>A melhor forma de aprender Django é praticando! Crie projetos reais, experimente novos recursos e não tenha medo de errar. Os erros são seus melhores professores. 🎉</p>
             </div>
 
         </div>
