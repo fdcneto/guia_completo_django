@@ -509,46 +509,83 @@
 
             <h2 id="instalacao"><span class="emoji">🔧</span>Instalação e Configuração do Ambiente</h2>
             
-            <div class="step-container">
-                <h3><span class="step-number">1</span>Criar Pasta do Projeto</h3>
-                <span class="command-label">Terminal/CMD</span>
-                <pre><code>mkdir meu-projeto-django
-cd meu-projeto-django</code></pre>
-                <p>Este será o diretório raiz do seu projeto.</p>
+            <div class="intro-box">
+                <p>Para evitar conflitos entre projetos, seguiremos o "Caminho Sagrado" do Python: criar uma pasta, isolar o ambiente, e só depois instalar as ferramentas. Siga a ordem exata:</p>
             </div>
 
             <div class="step-container">
-                <h3><span class="step-number">2</span>Criar e Ativar Ambiente Virtual</h3>
-                <span class="command-label">Windows (PowerShell)</span>
-                <pre><code>python -m venv .venv
-.venv\Scripts\Activate.ps1</code></pre>
+                <h3><span class="step-number">1</span>Criar a Pasta do Projeto</h3>
+                <p>Primeiro, crie o local onde seu projeto vai morar. Evite nomes com espaços ou caracteres especiais.</p>
+                <span class="command-label">Terminal/PowerShell</span>
+                <pre><code>mkdir meu-projeto-django
+cd meu-projeto-django</code></pre>
+            </div>
+
+            <div class="step-container">
+                <h3><span class="step-number">2</span>Criar o Ambiente Virtual (Venv)</h3>
+                <p>O comando abaixo cria uma pasta chamada <code>.venv</code> que conterá uma instalação isolada do Python. Isso evita que o Django desse projeto interfira em outros.</p>
                 
-                <span class="command-label">Linux/macOS</span>
-                <pre><code>python3 -m venv .venv
-source .venv/bin/activate</code></pre>
+                <span class="command-label">Terminal</span>
+                <pre><code>python -m venv .venv</code></pre>
                 
                 <div class="tip-box">
                     <strong>💡 Dica:</strong>
-                    Se encontrar erro de permissão no Windows, execute antes:
-                    <code>Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass</code>
+                    Se o comando acima der erro dizendo que "python não foi encontrado", tente usar <code>python3 -m venv .venv</code> ou verifique se instalou o Python marcando a opção "Add to PATH".
                 </div>
             </div>
 
             <div class="step-container">
-                <h3><span class="step-number">3</span>Instalar Django e Dependências</h3>
-                <span class="command-label">pip</span>
+                <h3><span class="step-number">3</span>Ativar o Ambiente Virtual</h3>
+                <p>Esta é a etapa onde a maioria dos erros acontece. Você precisa "entrar" na pasta criada. Observe se aparecerá um <code>(.venv)</code> verde no início da linha do terminal.</p>
+                
+                <span class="command-label">Windows (PowerShell)</span>
+                <pre><code>.\.venv\Scripts\Activate</code></pre>
+                
+                <span class="command-label">Linux/macOS (Bash)</span>
+                <pre><code>source .venv/bin/activate</code></pre>
+                
+                <div class="warning-box">
+                    <strong>⚠️ Erro Comum no Windows:</strong>
+                    <p>Se aparecer um erro vermelho dizendo <em>"a execução de scripts foi desabilitada neste sistema"</em>, é uma trava de segurança do Windows. Para corrigir, execute este comando e tente ativar novamente:</p>
+                    <pre><code>Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass</code></pre>
+                    <p><small>(Isso libera a execução apenas para essa janela do terminal, sem comprometer a segurança global do PC).</small></p>
+                </div>
+            </div>
+
+            <div class="step-container">
+                <h3><span class="step-number">4</span>Instalar o Django</h3>
+                <p>Agora que o ambiente está ativo (tem o <code>(.venv)</code> no terminal?), podemos instalar o Django com segurança.</p>
+                
+                <span class="command-label">Terminal (com venv ativo)</span>
                 <pre><code>pip install django</code></pre>
                 
-                <p>Para projetos com API REST e CORS:</p>
-                <pre><code>pip install django djangorestframework django-cors-headers python-dotenv</code></pre>
+                <p>Para verificar se instalou corretamente e ver a versão:</p>
+                <pre><code>python -m django --version</code></pre>
+            </div>
+
+            <div class="step-container">
+                <h3><span class="step-number">5</span>Instalar Dependências Extras</h3>
+                <p>Instale outras bibliotecas que seu projeto vá usar. Se for criar uma API, por exemplo:</p>
                 
-                <p>Para autenticação JWT:</p>
-                <pre><code>pip install djangorestframework-simplejwt</code></pre>
+                <span class="command-label">Terminal</span>
+                <pre><code>pip install djangorestframework django-cors-headers python-dotenv</code></pre>
                 
                 <div class="tip-box">
-                    <strong>💡 Dica IMPORTANTE:</strong>
-                    Salve as dependências em um arquivo requirements.txt:
-                    <code>pip freeze > requirements.txt</code>
+                    <strong>💡 Nota:</strong>
+                    Sempre instale as bibliotecas com o ambiente virtual ativado. Se fechar o terminal, lembre-se de fazer o <strong>Passo 3</strong> novamente antes de instalar qualquer coisa.
+                </div>
+            </div>
+
+            <div class="step-container">
+                <h3><span class="step-number">6</span>Criar requirements.txt</h3>
+                <p>Para garantir que você (ou outro desenvolvedor) consiga reinstalar tudo isso no futuro com um comando só, "congelamos" as versões atuais.</p>
+                
+                <span class="command-label">Terminal</span>
+                <pre><code>pip freeze > requirements.txt</code></pre>
+                
+                <div class="success-box">
+                    <strong>✅ Conferência:</strong>
+                    Abra o arquivo <code>requirements.txt</code> que foi criado. Ele deve listar <code>Django==5.x.x</code> e as outras bibliotecas.
                 </div>
             </div>
 
