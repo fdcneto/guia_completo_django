@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guia Prático: Do Zero ao Deploy - Django</title>
+    
+    <style>
+        body { font-family: Arial, sans-serif; line-height: 1.6; margin: 0; display: flex; }
+        nav { width: 250px; background: #f4f4f4; padding: 20px; height: 100vh; position: fixed; overflow-y: auto; }
+        main { margin-left: 270px; padding: 40px; max-width: 800px; }
+        pre { background: #2d2d2d; color: #f8f8f2; padding: 15px; border-radius: 5px; overflow-x: auto; }
+        code { font-family: 'Consolas', monospace; }
+        h1, h2, h3 { color: #333; }
+        h2 { border-bottom: 2px solid #ddd; padding-bottom: 10px; margin-top: 50px; }
+        .alert { background: #e7f3fe; border-left: 6px solid #2196F3; padding: 15px; margin: 15px 0; }
+        a { text-decoration: none; color: #007bff; }
+        nav ul { list-style: none; padding: 0; }
+        nav li { margin-bottom: 10px; }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <h3>Índice</h3>
+        <ul>
+            <li><a href="#intro">1. Fundamentos (.venv)</a></li>
+            <li><a href="#setup">2. O Ritual de Início</a></li>
+            <li><a href="#settings">3. Configurações Iniciais</a></li>
+            <li><a href="#db">4. Banco e Admin</a></li>
+            <li><a href="#app">5. Criando o App</a></li>
+            <li><a href="#static">6. Contexto e Estáticos</a></li>
+            <li><a href="#models">7. Modelos (Banco Real)</a></li>
+            <li><a href="#frontend">8. Frontend (Bootstrap)</a></li>
+            <li><a href="#advanced">9. Detalhes e Forms</a></li>
+            <li><a href="#deploy">10. Deploy (Nuvem)</a></li>
+        </ul>
+    </nav>
+
+    <main>
+        
+        <header>
+            <h1>Guia Mão na Massa: Django do Zero ao Deploy</h1>
+            <p>Este documento consolida o passo a passo prático para criar, configurar e publicar um projeto Django profissional, utilizando o exemplo do projeto "Sebastião Tavares".</p>
+        </header>
+
+        <hr>
+
+        <section id="intro">
+            <h2>1. Fundamentos: O Ambiente Virtual</h2>
+            <p>Antes de escrever código, precisamos preparar o terreno. A regra de ouro no Django é: <strong>Nunca instale bibliotecas no Python global do seu computador.</strong></p>
+            
+            <h3>1.1 Por que usar <code>.venv</code>?</h3>
+            <p>Imagine o <code>.venv</code> (Virtual Environment) como uma "caixa vazia".</p>
+            <ul>
+                <li><strong>Global:</strong> Se você instalar o Django no PC, versões diferentes de projetos antigos e novos entrarão em conflito.</li>
+                <li><strong>Virtual (.venv):</strong> Cada projeto tem sua própria caixa com suas próprias ferramentas.</li>
+            </ul>
+
+            <div class="alert">
+                <strong>Limpeza (Opcional):</strong> Se você já instalou Django globalmente, remova-o:
+                <pre><code>deactivate
+pip uninstall django</code></pre>
+            </div>
+        </section>
+
+        <section id="setup">
+            <h2>2. O Ritual de Início (Setup)</h2>
+            <p>Siga este ritual sempre que começar um projeto novo no terminal.</p>
+
+            <h3>2.1 Criando a Estrutura e o Ambiente</h3>
+            <pre><code># 1. Criar a pasta do projeto
+mkdir meu_primeiro_django
+cd meu_primeiro_django
+
+# 2. Criar a "Caixa" (.venv)
+python -m venv .venv
+
+# 3. Ativar o Ambiente (CRUCIAL!)
+# No Windows:
+.\.venv\Scripts\activate
+# No Mac/Linux:
+source .venv/bin/activate
+
+# 4. Instalar o Django
+pip install django</code></pre>
+
+            <h3>2.2 Iniciando o Projeto</h3>
+            <p>Com o Django instalado, criamos os arquivos base. O ponto final <code>.</code> é importante para não criar subpastas desnecessárias.</p>
+            <pre><code>django-admin startproject core .</code></pre>
+
+            <h3>2.3 Teste de Fogo</h3>
+            <pre><code>python manage.py runserver</code></pre>
+            <p>Acesse <a href="http://127.0.0.1:8000/" target="_blank">http://127.0.0.1:8000/</a>. Se ver o foguetinho, funcionou! 🚀</p>
+        </section>
+
+        <section id="settings">
+            <h2>3. Configurações Iniciais</h2>
+            <p>Abra o arquivo <code>core/settings.py</code> para "tropicalizar" o projeto.</p>
+
+            <pre><code class="language-python">LANGUAGE_CODE = 'pt-br'
+TIME_ZONE = 'America/Sao_Paulo'
+USE_TZ = True</code></pre>
+
+            <h3>Congelando Requisitos</h3>
+            <p>Para salvar a lista de bibliotecas instaladas (útil para o deploy):</p>
+            <pre><code>pip freeze > requirements.txt</code></pre>
+        </section>
+
+        <section id="db">
+            <h2>4. Banco de Dados e Admin</h2>
+            <p>O Django precisa criar as tabelas iniciais para o sistema de login funcionar.</p>
+
+            <h3>4.1 Migrations e Superusuário</h3>
+            <pre><code># Cria as tabelas iniciais (db.sqlite3)
+python manage.py migrate
+
+# Cria o admin (Siga os passos de senha)
+python manage.py createsuperuser</code></pre>
+            <p>Acesse <a href="http://127.0.0.1:8000/admin">/admin</a> para testar o login.</p>
+        </section>
+
+        <section id="app">
+            <h2>5. Criando o Primeiro App (website)</h2>
+            <p>O projeto (core) é o prédio. O App é o apartamento.</p>
+
+            <h3>5.1 Criar e Registrar</h3>
+            <pre><code>python manage.py startapp website</code></pre>
+            <p>Vá em <code>core/settings.py</code> e adicione em <code>INSTALLED_APPS</code>:</p>
+            <pre><code class="language-python">INSTALLED_APPS = [
+    # ... apps do django ...
+    'website',
+]</code></pre>
+
+            <h3>5.2 O Ciclo MVT (Model-View-Template)</h3>
+            <p><strong>1. View (website/views.py):</strong></p>
+            <pre><code class="language-python">from django.shortcuts import render
+
+def index(request):
+    return render(request, 'website/index.html')</code></pre>
+
+            <p><strong>2. URL (core/urls.py):</strong></p>
+            <pre><code class="language-python">from django.urls import path
+from website.views import index
+
+urlpatterns = [
+    path('admin/', admin.site.urls),
+    path('', index, name='index'),
+]</code></pre>
+
+            <p><strong>3. Template (HTML):</strong> Crie <code>website/templates/website/index.html</code>.</p>
+        </section>
+
+        <section id="static">
+            <h2>6. Contexto e Arquivos Estáticos</h2>
+            
+            <h3>6.1 Passando Dados (Contexto)</h3>
+            <p>Na View, enviamos um dicionário para o HTML:</p>
+            <pre><code class="language-python">def index(request):
+    dados = {'nome_empresa': 'Sebastião Tavares'}
+    return render(request, 'website/index.html', dados)</code></pre>
+            <p>No HTML, usamos <code>{{ nome_empresa }}</code>.</p>
+
+            <h3>6.2 CSS e Imagens</h3>
+            <p>Estrutura de pastas: <code>website/static/website/style.css</code></p>
+            <p>No HTML:</p>
+            <pre><code class="language-html">{% load static %}
+<link rel="stylesheet" href="{% static 'website/style.css' %}"></code></pre>
+        </section>
+
+        <section id="models">
+            <h2>7. Modelos: O Banco de Dados Real</h2>
+            <p>Substituindo dados falsos por tabelas reais.</p>
+
+            <h3>7.1 Criando o Modelo (models.py)</h3>
+            <pre><code class="language-python">class Servico(models.Model):
+    titulo = models.CharField(max_length=100)
+    descricao = models.TextField()
+
+    def __str__(self):
+        return self.titulo</code></pre>
+
+            <h3>7.2 Aplicando no Banco</h3>
+            <pre><code>python manage.py makemigrations
+python manage.py migrate</code></pre>
+
+            <h3>7.3 Registrar no Admin (admin.py)</h3>
+            <pre><code class="language-python">from .models import Servico
+admin.site.register(Servico)</code></pre>
+        </section>
+
+        <section id="frontend">
+            <h2>8. Frontend Profissional (Bootstrap & Herança)</h2>
+            
+            <h3>8.1 O Molde Mestre (base.html)</h3>
+            <p>Crie <code>base.html</code> com o link do Bootstrap e a tag:</p>
+            <pre><code class="language-html">{% block content %}
+{% endblock %}</code></pre>
+
+            <h3>8.2 As Páginas Filhas</h3>
+            <p>No <code>index.html</code>, apague a repetição e use:</p>
+            <pre><code class="language-html">{% extends 'website/base.html' %}
+
+{% block content %}
+    {% endblock %}</code></pre>
+        </section>
+
+        <section id="advanced">
+            <h2>9. Funcionalidades Avançadas</h2>
+            
+            <h3>9.1 URLs Dinâmicas (Detalhes)</h3>
+            <p>Para acessar <code>/servico/1/</code>.</p>
+            <ul>
+                <li><strong>URL:</strong> <code>path('servico/&lt;int:id&gt;/', detalhe_servico)</code></li>
+                <li><strong>View:</strong> <code>item = get_object_or_404(Servico, id=id)</code></li>
+                <li><strong>HTML:</strong> <code>{% url 'detalhe_servico' item.id %}</code></li>
+            </ul>
+
+            <h3>9.2 Formulários (Contato)</h3>
+            <ol>
+                <li>Criar modelo <code>Contato</code>.</li>
+                <li>Criar <code>forms.py</code> com <code>ModelForm</code>.</li>
+                <li>Na View, validar com <code>form.is_valid()</code> e salvar com <code>form.save()</code>.</li>
+                <li>No HTML, usar a tag de segurança <code>{% csrf_token %}</code>.</li>
+            </ol>
+        </section>
+
+        <section id="deploy">
+            <h2>10. Deploy: Publicando na Nuvem</h2>
+            <p>Usando o PythonAnywhere e GitHub.</p>
+
+            <h3>10.1 Preparação (Local)</h3>
+            <ol>
+                <li><code>settings.py</code>: <code>ALLOWED_HOSTS = ['*']</code></li>
+                <li><code>settings.py</code>: <code>STATIC_ROOT = os.path.join(BASE_DIR, 'static_root')</code></li>
+                <li>Gerar requirements: <code>pip freeze > requirements.txt</code></li>
+                <li>Subir tudo para o GitHub (`git push`).</li>
+            </ol>
+
+            <h3>10.2 Configuração (Nuvem)</h3>
+            <ol>
+                <li>Clonar o repositório no Console Bash.</li>
+                <li>Criar venv, instalar requirements, rodar migrate.</li>
+                <li>Rodar <strong><code>python manage.py collectstatic</code></strong> (para o CSS).</li>
+                <li>Configurar <strong>Web App</strong> (Manual Config).</li>
+                <li>Apontar arquivo WSGI e Pasta Static (`/static/` -> `static_root`).</li>
+            </ol>
+
+            <div class="alert">
+                <p><strong>Sucesso!</strong> Ao clicar em Reload, seu site estará online.</p>
+            </div>
+        </section>
+
+        <footer>
+            <hr>
+            <p style="text-align: center;">Documento gerado via Gemini | Projeto Sebastião Tavares</p>
+        </footer>
+
+    </main>
+</body>
+</html>
