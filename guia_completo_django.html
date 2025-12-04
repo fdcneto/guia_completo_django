@@ -541,10 +541,15 @@ cd meu-projeto-django</code></pre>
                 
                 <span class="command-label">Windows (PowerShell)</span>
                 <pre><code>.\.venv\Scripts\Activate</code></pre>
+
+                <p>Caso necessite desativar o .venv</p>
+                
+                <span class="command-label">Windows (PowerShell)</span>
+                <pre><code>Deactivate</code></pre>
                 
                 <span class="command-label">Linux/macOS (Bash)</span>
                 <pre><code>source .venv/bin/activate</code></pre>
-                
+                               
                 <div class="warning-box">
                     <strong>⚠️ Erro Comum no Windows:</strong>
                     <p>Se aparecer um erro vermelho dizendo <em>"a execução de scripts foi desabilitada neste sistema"</em>, é uma trava de segurança do Windows. Para corrigir, execute este comando e tente ativar novamente:</p>
@@ -733,7 +738,7 @@ AWS_ACCESS_KEY_ID=AKIA...</code></pre>
     <div class="warning-box" style="margin: 1rem 0; padding: 1rem; background: #fee2e2; border-left: 4px solid #ef4444;">
         <strong>🚨 CRÍTICO - AÇÃO IMEDIATA REQUERIDA:</strong>
         <p style="margin: 0.5rem 0;">Adicione <code>.env</code> ao seu arquivo <code>.gitignore</code> AGORA MESMO!</p>
-        <pre style="margin: 0.5rem 0; background: #fecaca; padding: 0.5rem; border-radius: 4px;"><code># No arquivo .gitignore, adicione:
+        <pre style="margin: 0.5rem 0; background: #1e1e2e; padding: 0.5rem; border-radius: 4px;"><code># No arquivo .gitignore, adicione:
 .env
 *.env
 .env.local
@@ -1077,7 +1082,15 @@ Post.objects.get(id=1)</code></pre>
                 <span class="command-label">django-admin</span>
                 <pre><code>django-admin startproject meu_site .</code></pre>
                 <p>O ponto final <code>.</code> significa "criar aqui". Isso gera <code>manage.py</code> e a pasta <code>meu_site</code> com as configurações.</p>
+                
+                <pre><code>python -m django startproject meu_site .</code></pre>
+                <p>NÃO use django-admin diretamente (boa prática)</p>
+<p>Essa é a forma correta e mais segura, especialmente no Windows.</p>
+<p>Muitos devs experientes nunca usam django-admin direto no Windows.</p>
+            
             </div>
+            
+            
 
             <div class="step-container">
                 <h3><span class="step-number">8</span>Estrutura do Projeto</h3>
