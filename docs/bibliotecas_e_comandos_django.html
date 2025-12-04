@@ -1,0 +1,836 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+    <head>
+        <meta charset="UTF-8">
+        <title>Bibliotecas e Comandos Essenciais do Django - Guia
+            Detalhado</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+        <style>
+        body {
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+            margin: 0;
+            background: #f9fafb;
+            color: #1f2937;
+            line-height: 1.65;
+        }
+
+        header, footer {
+            background: #111827;
+            color: white;
+            padding: 1.5rem;
+        }
+
+        nav {
+            background: #e5e7eb;
+            padding: 0.8rem 1.2rem;
+        }
+
+        nav a {
+            color: #1d4ed8;
+            text-decoration: none;
+            margin-right: 1rem;
+            font-weight: 500;
+        }
+
+        main {
+            max-width: 1000px;
+            margin: auto;
+            background: white;
+            padding: 2rem;
+        }
+
+        h2 {
+            margin-top: 2.5rem;
+            border-bottom: 2px solid #e5e7eb;
+            padding-bottom: 0.3rem;
+        }
+
+        h3 {
+            margin-top: 1.5rem;
+            color: #0f172a;
+        }
+
+        ul {
+            margin-left: 1.2rem;
+        }
+
+        pre {
+            background: #f3f4f6;
+            padding: 1rem;
+            overflow-x: auto;
+            border-left: 4px solid #2563eb;
+        }
+
+        .note {
+            background: #fffbeb;
+            border-left: 4px solid #f59e0b;
+            padding: 0.8rem;
+            margin: 1rem 0;
+        }
+
+        .definition {
+            background: #ecfdf5;
+            border-left: 4px solid #10b981;
+            padding: 1rem;
+            margin: 1.2rem 0;
+            border-radius: 0 4px 4px 0;
+        }
+
+        footer {
+            text-align: center;
+            font-size: 0.9rem;
+        }
+    </style>
+    </head>
+
+    <body>
+
+        <header>
+            <h1>Bibliotecas e Comandos Essenciais do Django</h1>
+            <p>Guia técnico aprofundado sobre o ecossistema Django: teoria,
+                prática e fluxos de trabalho profissionais.</p>
+        </header>
+
+        <nav>
+            <a href="../index.html">Início</a>
+            <a href="../guia_completo_django.html">Guia Principal</a>
+            <a href="#django-core">Django Core</a>
+            <a href="#commands">Comandos</a>
+            <a href="#drf">Django REST Framework</a>
+            <a href="#lib-extras">Bibliotecas Extras</a>
+        </nav>
+
+        <main>
+
+            <section id="django-core">
+                <h2>1. Django Core (Fundamentos Conceituais)</h2>
+                <p>O Django é estruturado em torno do padrão <strong>MTV
+                        (Model-Template-View)</strong>, uma variação do MVC. Os
+                    módulos core implementam essa arquitetura e definem o fluxo
+                    de processamento de uma requisição web — desde a URL até a
+                    resposta renderizada.</p>
+
+                <div class="definition">
+                    <strong>Fluxo Django:</strong> URL → View (lógica) → Model
+                    (dados) → Template (apresentação) → Resposta HTTP
+                </div>
+
+                <h3>django.db.models</h3>
+                <p>
+                    Este é o coração da <strong>camada de persistência</strong>
+                    do Django. O ORM (Object-Relational Mapper) não é apenas um
+                    "tradutor" SQL, mas uma <strong>camada de abstração
+                        completa</strong> que:
+                </p>
+                <ul>
+                    <li>Mapeia classes Python para tabelas SQL
+                        automaticamente</li>
+                    <li>Fornece uma API de consulta intuitiva (QuerySet
+                        API)</li>
+                    <li>Gerencia relacionamentos (ForeignKey, ManyToMany,
+                        OneToOne)</li>
+                    <li>Oferece validação de dados no nível do modelo</li>
+                    <li>Suporta transações e operações atômicas</li>
+                </ul>
+
+                <pre><code>from django.db import models
+
+class Task(models.Model):
+    # CharField se torna VARCHAR no SQL
+    title = models.CharField(
+        max_length=100,
+        verbose_name="Título da Tarefa",
+        help_text="Digite um título descritivo"
+    )
+    
+    # BooleanField com valor padrão
+    completed = models.BooleanField(
+        default=False,
+        verbose_name="Concluída"
+    )
+    
+    # Auto-criação de timestamp
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+    
+    # Relacionamento ForeignKey (muitas tarefas para um usuário)
+    user = models.ForeignKey(
+        'auth.User',
+        on_delete=models.CASCADE,
+        related_name='tasks'
+    )
+    
+    def __str__(self):
+        return f"{self.title} - {'Concluída' if self.completed else 'Pendente'}"
+    
+    class Meta:
+        ordering = ['-created_at']
+        verbose_name = "Tarefa"
+        verbose_name_plural = "Tarefas"</code></pre>
+
+                <h3>django.urls</h3>
+                <p>
+                    O sistema de roteamento do Django é <strong>declarativo e
+                        hierárquico</strong>. Cada projeto possui um arquivo
+                    <code>urls.py</code> raiz que pode incluir outros arquivos
+                    de URLs de apps específicos, criando uma árvore de
+                    roteamento.
+                </p>
+                <ul>
+                    <li><strong>path()</strong>: para rotas simples</li>
+                    <li><strong>re_path()</strong>: para rotas com regex</li>
+                    <li><strong>include()</strong>: para modularização</li>
+                    <li><strong>Namespace</strong>: para evitar conflitos entre
+                        apps</li>
+                </ul>
+
+                <pre><code>from django.urls import path, include
+from django.contrib import admin
+from . import views
+
+# URL patterns principais do projeto
+urlpatterns = [
+    # Rota para admin Django
+    path('admin/', admin.site.urls),
+    
+    # Rota simples direta para view
+    path('', views.home, name='home'),
+    
+    # Rota com parâmetro dinâmico (captura um inteiro)
+    path('tasks/&lt;int:task_id&gt;/', views.task_detail, name='task-detail'),
+    
+    # Inclusão modular: delega rotas começando com 'api/' para outro arquivo
+    path('api/', include('api.urls', namespace='api')),
+    
+    # Rota com prefixo e namespace para app de usuários
+    path('accounts/', include('users.urls', namespace='users')),
+]</code></pre>
+
+                <h3>django.http</h3>
+                <p>
+                    Este módulo define os objetos fundamentais do protocolo HTTP
+                    no Django:
+                </p>
+                <ul>
+                    <li><strong>HttpRequest</strong>: Contém todos os dados da
+                        requisição (GET, POST, headers, sessão, usuário
+                        autenticado)</li>
+                    <li><strong>HttpResponse</strong>: Resposta HTTP básica
+                        (status code, headers, conteúdo)</li>
+                    <li><strong>JsonResponse</strong>: Resposta com conteúdo
+                        JSON automaticamente serializado</li>
+                    <li><strong>FileResponse</strong>: Para servir arquivos</li>
+                    <li><strong>StreamingHttpResponse</strong>: Para respostas
+                        em fluxo contínuo</li>
+                </ul>
+
+                <pre><code>from django.http import HttpResponse, JsonResponse, Http404
+from django.core.serializers import serialize
+
+def api_task_detail(request, task_id):
+    """
+    Exemplo de view que retorna diferentes tipos de resposta
+    baseado no parâmetro 'format' da query string
+    """
+    try:
+        task = Task.objects.get(id=task_id)
+    except Task.DoesNotExist:
+        raise Http404("Tarefa não encontrada")
+    
+    format_type = request.GET.get('format', 'html')
+    
+    if format_type == 'json':
+        # Retorna JSON serializado
+        return JsonResponse({
+            'id': task.id,
+            'title': task.title,
+            'completed': task.completed,
+            'created_at': task.created_at.isoformat()
+        })
+    elif format_type == 'xml':
+        # Retorna XML (usando serializador Django)
+        xml_data = serialize('xml', [task])
+        return HttpResponse(xml_data, content_type='application/xml')
+    else:
+        # Retorna HTML simples
+        return HttpResponse(f"&lt;h1&gt;{task.title}&lt;/h1&gt;&lt;p&gt;Status: {task.completed}&lt;/p&gt;")</code></pre>
+
+                <h3>django.shortcuts</h3>
+                <p>
+                    São funções utilitárias que encapsulam padrões comuns,
+                    reduzindo código boilerplate e melhorando a legibilidade:
+                </p>
+                <ul>
+                    <li><strong>render()</strong>: Combina template + contexto +
+                        request → HttpResponse</li>
+                    <li><strong>redirect()</strong>: Redirecionamento HTTP
+                        (302/301)</li>
+                    <li><strong>get_object_or_404()</strong>: Busca ou retorna
+                        404 automaticamente</li>
+                    <li><strong>get_list_or_404()</strong>: Busca lista ou
+                        retorna 404</li>
+                    <li><strong>resolve_url()</strong>: Resolve qualquer tipo de
+                        URL (path name, URL absoluta, objeto com
+                        get_absolute_url)</li>
+                </ul>
+
+                <pre><code>from django.shortcuts import render, redirect, get_object_or_404
+from django.contrib.auth.decorators import login_required
+from .forms import TaskForm
+
+@login_required
+def create_task(request):
+    """
+    View que demonstra múltiplos shortcuts em ação
+    """
+    if request.method == 'POST':
+        form = TaskForm(request.POST)
+        if form.is_valid():
+            task = form.save(commit=False)
+            task.user = request.user  # Associa ao usuário logado
+            task.save()
+            # Redireciona para a página de detalhe da tarefa criada
+            return redirect('task-detail', task_id=task.id)
+    else:
+        form = TaskForm()
+    
+    # Renderiza template com formulário
+    return render(request, 'tasks/create.html', {
+        'form': form,
+        'title': 'Nova Tarefa'
+    })
+
+def task_detail(request, task_id):
+    """
+    View que usa get_object_or_404 para tratamento elegante de erros
+    """
+    task = get_object_or_404(Task, id=task_id, user=request.user)
+    return render(request, 'tasks/detail.html', {'task': task})</code></pre>
+            </section>
+
+            <section id="commands">
+                <h2>2. Comandos Essenciais do Django (CLI)</h2>
+                <p>O <code>manage.py</code> é o ponto de entrada para todas as
+                    operações administrativas do Django. Ele encapsula o
+                    Django-admin com as configurações do seu projeto.</p>
+
+                <div class="definition">
+                    <strong>Dica de Estrutura:</strong> Um projeto Django bem
+                    organizado geralmente contém múltiplos apps, cada um com
+                    responsabilidade específica (ex: `users`, `products`,
+                    `orders`, `blog`).
+                </div>
+
+                <h3>Criar projeto (startproject)</h3>
+                <p>Cria a estrutura básica do projeto com configurações
+                    globais:</p>
+                <ul>
+                    <li><code>settings.py</code>: Configurações do projeto (BD,
+                        apps instalados, middlewares)</li>
+                    <li><code>urls.py</code>: Roteamento principal</li>
+                    <li><code>wsgi.py</code>: Ponto de entrada para servidores
+                        WSGI (ex: Gunicorn)</li>
+                    <li><code>asgi.py</code>: Ponto de entrada para ASGI (ex:
+                        Daphne, para WebSockets)</li>
+                </ul>
+                <pre><code># Cria projeto chamado 'config' (boas práticas modernas)
+django-admin startproject config .
+
+# Estrutura criada:
+# ├── config/
+# │   ├── __init__.py
+# │   ├── settings.py
+# │   ├── urls.py
+# │   ├── wsgi.py
+# │   └── asgi.py
+# ├── manage.py
+# └── requirements.txt</code></pre>
+
+                <h3>Criar app (startapp)</h3>
+                <p>Cria um módulo funcional dentro do projeto. Cada app deve ter
+                    uma responsabilidade única:</p>
+                <ul>
+                    <li><code>models.py</code>: Definição dos modelos de
+                        dados</li>
+                    <li><code>views.py</code>: Lógica de apresentação</li>
+                    <li><code>urls.py</code>: Roteamento específico do app</li>
+                    <li><code>admin.py</code>: Configuração do painel admin</li>
+                    <li><code>tests.py</code>: Testes unitários</li>
+                </ul>
+                <pre><code># Cria app para gerenciamento de tarefas
+python manage.py startapp tasks
+
+# App criado dentro do projeto:
+# tasks/
+# ├── migrations/
+# │   └── __init__.py
+# ├── __init__.py
+# ├── admin.py
+# ├── apps.py
+# ├── models.py
+# ├── tests.py
+# ├── views.py
+# └── urls.py (criado manualmente depois)</code></pre>
+
+                <h3>Rodar servidor de desenvolvimento (runserver)</h3>
+                <p>Inicia um servidor web leve para desenvolvimento com recursos
+                    avançados:</p>
+                <ul>
+                    <li><strong>Hot Reload:</strong> Reinicia automaticamente ao
+                        detectar mudanças no código</li>
+                    <li><strong>Debug Mode:</strong> Página de erros detalhada
+                        quando <code>DEBUG = True</code></li>
+                    <li><strong>Static Files:</strong> Serve arquivos estáticos
+                        automaticamente em desenvolvimento</li>
+                    <li><strong>Console SQL:</strong> Mostra todas as queries
+                        executadas no terminal</li>
+                </ul>
+                <pre><code># Servidor padrão (localhost:8000)
+python manage.py runserver
+
+# Em IP e porta específicos
+python manage.py runserver 0.0.0.0:8080
+
+# Com recarga automática desativada (para debug específico)
+python manage.py runserver --noreload</code></pre>
+
+                <h3>Criar migrações (makemigrations)</h3>
+                <p>Gera instruções de migração baseadas nas mudanças nos
+                    modelos:</p>
+                <ul>
+                    <li>Cria arquivos Python em <code>migrations/</code> com
+                        operações de schema</li>
+                    <li>Pode ser específico para um app: <code>makemigrations
+                            tasks</code></li>
+                    <li>Suporta migrações de dados (<code>RunPython</code>) além
+                        de schema</li>
+                    <li>Permite nomear migrações: <code>makemigrations --name
+                            alter_title_field</code></li>
+                </ul>
+                <pre><code># Cria migrações para todos os apps com mudanças
+python manage.py makemigrations
+
+# Migração específica para app 'tasks'
+python manage.py makemigrations tasks
+
+# Ver SQL que será executado (sem aplicar)
+python manage.py sqlmigrate tasks 0001_initial</code></pre>
+
+                <h3>Aplicar migrações (migrate)</h3>
+                <p>Executa as migrações pendentes no banco de dados:</p>
+                <ul>
+                    <li>Aplica migrações em ordem de dependência</li>
+                    <li>Mantém histórico no Django
+                        (<code>django_migrations</code>)</li>
+                    <li>Pode reverter migrações (<code>migrate app_name
+                            migration_name</code>)</li>
+                    <li>Suporta migrações falsas (<code>--fake</code>) para
+                        sincronização manual</li>
+                </ul>
+                <pre><code># Aplica todas as migrações pendentes
+python manage.py migrate
+
+# Aplica migrações apenas do app 'tasks'
+python manage.py migrate tasks
+
+# Reverte a última migração do app 'tasks'
+python manage.py migrate tasks 0001_initial
+
+# Mostra status das migrações
+python manage.py showmigrations</code></pre>
+
+                <h3>Criar superusuário (createsuperuser)</h3>
+                <p>Cria um usuário administrativo para acessar o painel Django
+                    Admin:</p>
+                <ul>
+                    <li>Interativo (pede username, email, password)</li>
+                    <li>Pode ser não-interativo via opções de linha de
+                        comando</li>
+                    <li>Integra-se com sistema de permissões do Django</li>
+                </ul>
+                <pre><code># Modo interativo (padrão)
+python manage.py createsuperuser
+
+# Modo não-interativo (para scripts/containers)
+python manage.py createsuperuser \
+  --username admin \
+  --email admin@example.com \
+  --noinput</code></pre>
+
+                <h3>Comandos Avançados Úteis</h3>
+                <pre><code># Shell interativo com Django pré-carregado (muito útil!)
+python manage.py shell
+
+# Criar arquivos de tradução (i18n)
+python manage.py makemessages -l pt_BR
+
+# Compilar traduções
+python manage.py compilemessages
+
+# Coletar arquivos estáticos para produção
+python manage.py collectstatic
+
+# Verificar problemas no projeto
+python manage.py check --deploy
+
+# Criar dump de dados
+python manage.py dumpdata tasks > tasks_fixture.json
+
+# Carregar dados de fixture
+python manage.py loaddata tasks_fixture.json</code></pre>
+
+                <div class="note">
+                    <strong>Workflow Profissional:</strong>
+                    <ol>
+                        <li>Alterar <code>models.py</code></li>
+                        <li><code>python manage.py makemigrations</code></li>
+                        <li><code>python manage.py migrate</code></li>
+                        <li><code>python manage.py runserver</code>
+                            (testar)</li>
+                        <li>Escrever testes em <code>tests.py</code></li>
+                        <li><code>python manage.py test</code></li>
+                    </ol>
+                    Este ciclo garante evolução segura do schema do banco de
+                    dados.
+                </div>
+            </section>
+
+            <section id="drf">
+                <h2>3. Django REST Framework (DRF)</h2>
+                <p>Extensão poderosa que transforma projetos Django em APIs
+                    RESTful profissionais. Adiciona serialização, autenticação,
+                    permissões, throttling, versionamento e documentação
+                    automática.</p>
+
+                <div class="definition">
+                    <strong>Princípio DRF:</strong> Separação clara entre
+                    serialização (dados), views (lógica) e renderização (formato
+                    de saída: JSON, XML, etc).
+                </div>
+
+                <h3>Serializers</h3>
+                <p>
+                    Os serializers fazem a ponte entre objetos Python complexos
+                    e formatos de dados serializáveis (JSON, XML, YAML). Eles
+                    são responsáveis por:
+                </p>
+                <ul>
+                    <li><strong>Serialização:</strong> Converte objetos
+                        QuerySet/Model → JSON</li>
+                    <li><strong>Desserialização:</strong> Valida JSON recebido →
+                        Objetos Python</li>
+                    <li><strong>Validação:</strong> Regras de validação em campo
+                        e objeto</li>
+                    <li><strong>Transformação:</strong> Computa campos
+                        derivados, formata datas, etc</li>
+                </ul>
+
+                <pre><code>from rest_framework import serializers
+from django.contrib.auth.models import User
+from .models import Task
+
+class UserSerializer(serializers.ModelSerializer):
+    """Serializer para modelo User padrão do Django"""
+    class Meta:
+        model = User
+        fields = ['id', 'username', 'email', 'date_joined']
+        read_only_fields = ['date_joined']
+
+class TaskSerializer(serializers.ModelSerializer):
+    """
+    Serializer avançado com campos personalizados,
+    validações e relacionamentos aninhados
+    """
+    
+    # Campo somente leitura computado
+    status = serializers.SerializerMethodField()
+    
+    # Campo relacionado aninhado (nested relationship)
+    user = UserSerializer(read_only=True)
+    
+    # Campo write-only para criação (não aparece na leitura)
+    user_id = serializers.PrimaryKeyRelatedField(
+        queryset=User.objects.all(),
+        source='user',
+        write_only=True
+    )
+    
+    class Meta:
+        model = Task
+        fields = [
+            'id', 'title', 'completed', 'created_at', 
+            'updated_at', 'status', 'user', 'user_id'
+        ]
+        read_only_fields = ['id', 'created_at', 'updated_at']
+        
+        # Validações extras no nível do objeto
+        validators = [
+            serializers.UniqueTogetherValidator(
+                queryset=Task.objects.all(),
+                fields=['title', 'user'],
+                message="Você já tem uma tarefa com este título"
+            )
+        ]
+    
+    def get_status(self, obj):
+        """Método para campo computado"""
+        return "completed" if obj.completed else "pending"
+    
+    def validate_title(self, value):
+        """Validação em nível de campo"""
+        if len(value.strip()) < 3:
+            raise serializers.ValidationError(
+                "O título deve ter pelo menos 3 caracteres"
+            )
+        return value.strip()
+    
+    def validate(self, data):
+        """Validação em nível de objeto"""
+        if data.get('completed') and not data.get('title'):
+            raise serializers.ValidationError({
+                'title': "Tarefas concluídas devem ter título"
+            })
+        return data</code></pre>
+
+                <h3>Views e ViewSets</h3>
+                <p>O DRF oferece múltiplas abstrações para criar views de
+                    API:</p>
+                <ul>
+                    <li><strong>APIView:</strong> Similar às views do Django,
+                        mas com métodos HTTP específicos</li>
+                    <li><strong>GenericAPIView + Mixins:</strong> Combina
+                        funcionalidades comuns (CRUD)</li>
+                    <li><strong>ViewSets:</strong> Agrupa operações relacionadas
+                        em um único conjunto</li>
+                    <li><strong>ModelViewSet:</strong> Fornece todas as
+                        operações CRUD para um modelo</li>
+                </ul>
+
+                <pre><code>from rest_framework import viewsets, permissions, filters
+from rest_framework.decorators import action
+from rest_framework.response import Response
+from django_filters.rest_framework import DjangoFilterBackend
+from .models import Task
+from .serializers import TaskSerializer
+
+class TaskViewSet(viewsets.ModelViewSet):
+    """
+    ViewSet que fornece todas as operações CRUD para Task
+    Inclui endpoints personalizados e filtragem avançada
+    """
+    queryset = Task.objects.all()
+    serializer_class = TaskSerializer
+    
+    # Configurações de permissão
+    permission_classes = [permissions.IsAuthenticated]
+    
+    # Filtros e ordenação
+    filter_backends = [
+        DjangoFilterBackend,
+        filters.SearchFilter,
+        filters.OrderingFilter
+    ]
+    filterset_fields = ['completed', 'created_at']
+    search_fields = ['title', 'user__username']
+    ordering_fields = ['created_at', 'updated_at', 'title']
+    ordering = ['-created_at']  # Ordenação padrão
+    
+    def get_queryset(self):
+        """
+        Restringe o queryset às tarefas do usuário atual
+        (security by default)
+        """
+        user = self.request.user
+        return Task.objects.filter(user=user)
+    
+    def perform_create(self, serializer):
+        """
+        Hook para personalizar a criação
+        Atribui automaticamente o usuário logado
+        """
+        serializer.save(user=self.request.user)
+    
+    @action(detail=True, methods=['post'])
+    def mark_completed(self, request, pk=None):
+        """
+        Endpoint personalizado: marca tarefa como concluída
+        Acessível em POST /api/tasks/{id}/mark_completed/
+        """
+        task = self.get_object()
+        task.completed = True
+        task.save()
+        serializer = self.get_serializer(task)
+        return Response(serializer.data)
+    
+    @action(detail=False)
+    def completed_tasks(self, request):
+        """
+        Endpoint personalizado: lista apenas tarefas concluídas
+        Acessível em GET /api/tasks/completed_tasks/
+        """
+        completed_tasks = self.get_queryset().filter(completed=True)
+        page = self.paginate_queryset(completed_tasks)
+        if page is not None:
+            serializer = self.get_serializer(page, many=True)
+            return self.get_paginated_response(serializer.data)
+        
+        serializer = self.get_serializer(completed_tasks, many=True)
+        return Response(serializer.data)</code></pre>
+
+                <h3>Autenticação e Permissões</h3>
+                <p>Sistema flexível de segurança:</p>
+                <ul>
+                    <li><strong>Autenticação:</strong> Token, Session, Basic,
+                        JWT (via djangorestframework-simplejwt)</li>
+                    <li><strong>Permissões:</strong> IsAuthenticated,
+                        IsAdminUser, IsAuthenticatedOrReadOnly,
+                        DjangoModelPermissions</li>
+                    <li><strong>Throttling:</strong> Limitação de requisições
+                        (AnonRateThrottle, UserRateThrottle)</li>
+                </ul>
+
+                <pre><code># Configuração típica no settings.py
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework.authentication.SessionAuthentication',
+        'rest_framework.authentication.TokenAuthentication',
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
+    ],
+    'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.IsAuthenticated',
+    ],
+    'DEFAULT_THROTTLE_CLASSES': [
+        'rest_framework.throttling.AnonRateThrottle',
+        'rest_framework.throttling.UserRateThrottle',
+    ],
+    'DEFAULT_THROTTLE_RATES': {
+        'anon': '100/day',
+        'user': '1000/hour'
+    },
+    'DEFAULT_RENDERER_CLASSES': [
+        'rest_framework.renderers.JSONRenderer',
+        'rest_framework.renderers.BrowsableAPIRenderer',  # Interface web
+    ],
+    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
+    'PAGE_SIZE': 20
+}</code></pre>
+
+                <h3>Roteamento Automático</h3>
+                <pre><code># api/urls.py
+from rest_framework.routers import DefaultRouter
+from .views import TaskViewSet
+
+router = DefaultRouter()
+router.register(r'tasks', TaskViewSet, basename='task')
+
+# URLs geradas automaticamente:
+# /api/tasks/ - GET (list), POST (create)
+# /api/tasks/{id}/ - GET (retrieve), PUT (update), PATCH (partial), DELETE
+# /api/tasks/{id}/mark_completed/ - POST (custom action)
+# /api/tasks/completed_tasks/ - GET (custom action)
+
+urlpatterns = router.urls</code></pre>
+            </section>
+
+            <section id="lib-extras">
+                <h2>4. Bibliotecas Extras Recomendadas</h2>
+                <p>O ecossistema Django é ampliado por bibliotecas de terceiros
+                    que resolvem problemas comuns:</p>
+
+                <h3>django-debug-toolbar</h3>
+                <p>Painel de debug que mostra queries SQL, tempo de execução,
+                    templates renderizados, cache, signals e muito mais.
+                    Essencial para otimização.</p>
+                <pre><code># settings.py
+INSTALLED_APPS += ['debug_toolbar']
+MIDDLEWARE += ['debug_toolbar.middleware.DebugToolbarMiddleware']
+
+# Apenas em desenvolvimento
+INTERNAL_IPS = ['127.0.0.1']</code></pre>
+
+                <h3>django-crispy-forms</h3>
+                <p>Renderiza formulários Django com templates HTML modernos
+                    (Bootstrap, Tailwind, etc).</p>
+                <pre><code># forms.py
+from django import forms
+from crispy_forms.helper import FormHelper
+from crispy_forms.layout import Submit
+
+class TaskForm(forms.ModelForm):
+    class Meta:
+        model = Task
+        fields = ['title', 'completed']
+    
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.helper = FormHelper()
+        self.helper.add_input(Submit('submit', 'Salvar Tarefa'))</code></pre>
+
+                <h3>django-filter</h3>
+                <p>Sistema de filtragem avançada para querysets, especialmente
+                    útil com DRF.</p>
+                <pre><code># filters.py
+import django_filters
+from .models import Task
+
+class TaskFilter(django_filters.FilterSet):
+    created_after = django_filters.DateFilter(
+        field_name='created_at', 
+        lookup_expr='gte'
+    )
+    
+    class Meta:
+        model = Task
+        fields = {
+            'title': ['icontains'],
+            'completed': ['exact'],
+            'created_at': ['gte', 'lte', 'exact'],
+        }</code></pre>
+
+                <h3>django-environ</h3>
+                <p>Gerencia configurações sensíveis via variáveis de
+                    ambiente.</p>
+                <pre><code># config/settings.py
+import environ
+
+env = environ.Env()
+environ.Env.read_env()
+
+SECRET_KEY = env('SECRET_KEY')
+DEBUG = env.bool('DEBUG', default=False)
+DATABASES = {
+    'default': env.db('DATABASE_URL')
+}</code></pre>
+
+                <h3>django-allauth</h3>
+                <p>Sistema completo de autenticação com redes sociais (Google,
+                    Facebook, GitHub), email verification, etc.</p>
+
+                <div class="note">
+                    <strong>Dicas de Produção:</strong>
+                    <ul>
+                        <li>Use <code>gunicorn</code> ou <code>uvicorn</code>
+                            como servidor WSGI/ASGI</li>
+                        <li><code>whitenoise</code> para servir arquivos
+                            estáticos</li>
+                        <li><code>django-redis</code> para cache e channels</li>
+                        <li><code>django-cors-headers</code> para APIs
+                            consumidas por frontend separado</li>
+                        <li><code>celery</code> + <code>redis</code> para
+                            tarefas assíncronas</li>
+                    </ul>
+                </div>
+            </section>
+
+        </main>
+
+        <footer>
+            <p>Documentação técnica Django | Atualizado em 2024 | Baseado nas
+                versões 4.2+</p>
+            <p>Este guia cobre desde conceitos fundamentais até padrões
+                avançados de desenvolvimento web com Django.</p>
+        </footer>
+
+    </body>
+</html>
