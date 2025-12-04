@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <title>Frontend Consumindo API JWT (Django DRF)</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <style>
+    body {
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      margin: 0;
+      background: #f9fafb;
+      color: #1f2937;
+      line-height: 1.65;
+    }
+
+    header, footer {
+      background: #111827;
+      color: #fff;
+      padding: 1.5rem;
+    }
+
+    header h1 {
+      margin: 0 0 0.5rem 0;
+    }
+
+    nav {
+      background: #e5e7eb;
+      padding: 0.8rem 1.2rem;
+    }
+
+    nav a {
+      margin-right: 1rem;
+      color: #1d4ed8;
+      text-decoration: none;
+      font-weight: 500;
+      white-space: nowrap;
+    }
+
+    nav a:hover {
+      text-decoration: underline;
+    }
+
+    main {
+      max-width: 1000px;
+      margin: auto;
+      padding: 2rem;
+      background: #ffffff;
+    }
+
+    h2 {
+      margin-top: 2.5rem;
+      border-bottom: 2px solid #e5e7eb;
+      padding-bottom: 0.3rem;
+    }
+
+    .box {
+      border: 1px solid #d1d5db;
+      padding: 1.2rem;
+      margin-top: 1.5rem;
+      border-radius: 6px;
+      background: #f9fafb;
+    }
+
+    input, button {
+      width: 100%;
+      padding: 0.6rem;
+      margin-bottom: 0.6rem;
+      font-size: 1rem;
+    }
+
+    button {
+      background: #2563eb;
+      color: white;
+      border: none;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background: #1e40af;
+    }
+
+    pre {
+      background: #f3f4f6;
+      padding: 1rem;
+      overflow-x: auto;
+      border-left: 4px solid #2563eb;
+    }
+
+    footer {
+      text-align: center;
+      font-size: 0.9rem;
+    }
+  </style>
+</head>
+
+<body>
+
+<header>
+  <h1>Frontend Consumindo API Django com JWT</h1>
+  <p>Login, Token, Permissões e Respostas Reais da API</p>
+</header>
+
+<nav>
+  <a href="../index.html">Início</a>
+  <a href="../guia_completo_django.html">Guia Principal</a>
+  <a href="#login">Login</a>
+  <a href="#token">Token</a>
+  <a href="#consumo">Consumo da API</a>
+  <a href="#erros">Erros</a>
+</nav>
+
+<main>
+
+<section>
+  <h2>1. O Papel do Frontend</h2>
+  <p>
+    Este frontend existe para demonstrar o fluxo real de uma API:
+  </p>
+  <ul>
+    <li>Login → recebe JWT</li>
+    <li>Frontend armazena token</li>
+    <li>Requisições enviam <code>Authorization: Bearer</code></li>
+    <li>API responde ou bloqueia</li>
+  </ul>
+</section>
+
+<section id="login" class="box">
+  <h2>2. Login JWT</h2>
+
+  <input type="text" id="username" placeholder="Usuário">
+  <input type="password" id="password" placeholder="Senha">
+  <button onclick="login()">Login</button>
+
+  <pre id="loginResult"></pre>
+</section>
+
+<section id="token" class="box">
+  <h2>3. Token JWT</h2>
+
+  <button onclick="showToken()">Mostrar Token</button>
+  <button onclick="logout()">Logout</button>
+
+  <pre id="tokenResult"></pre>
+</section>
+
+<section id="consumo" class="box">
+  <h2>4. Consumindo a API</h2>
+
+  <button onclick="listarTarefas()">Listar Tarefas</button>
+  <button onclick="deletarTarefa()">Deletar Tarefa (admin)</button>
+
+  <pre id="apiResult"></pre>
+</section>
+
+<section id="erros">
+  <h2>5. Erros 401 e 403</h2>
+
+  <ul>
+    <li><strong>401 Unauthorized</strong>: token ausente ou inválido</li>
+    <li><strong>403 Forbidden</strong>: autenticado, mas sem permissão</li>
+  </ul>
+
+  <p>
+    Esses erros vêm da API — o frontend apenas exibe.
+  </p>
+</section>
+
+</main>
+
+<footer>
+  <p>Guia Django Profissional • Frontend e JWT</p>
+</footer>
+
+<script>
+const API_BASE = "http://127.0.0.1:8000/api";
+const LOGIN_URL = API_BASE + "/token/";
+const TASKS_URL = API_BASE + "/tasks/";
+
+function login() {
+  fetch(LOGIN_URL, {
+    method: "POST",
+    headers: {"Content-Type": "application/json"},
+    body: JSON.stringify({
+      username: username.value,
+      password: password.value
+    })
+  })
+  .then(res => res.json())
+  .then(data => {
+    if (data.access) {
+      localStorage.setItem("token", data.access);
+    }
+    loginResult.textContent = JSON.stringify(data, null, 2);
+  });
+}
+
+function showToken() {
+  tokenResult.textContent =
+    localStorage.getItem("token") || "Nenhum token armazenado";
+}
+
+function logout() {
+  localStorage.removeItem("token");
+  alert("Logout realizado");
+}
+
+function listarTarefas() {
+  fetch(TASKS_URL, {
+    headers: authHeader()
+  })
+  .then(res => res.json())
+  .then(data => {
+    apiResult.textContent = JSON.stringify(data, null, 2);
+  });
+}
+
+function deletarTarefa() {
+  const id = prompt("ID da tarefa:");
+  fetch(TASKS_URL + id + "/", {
+    method: "DELETE",
+    headers: authHeader()
+  })
+  .then(res => {
+    apiResult.textContent = "Status HTTP: " + res.status;
+  });
+}
+
+function authHeader() {
+  return {
+    "Authorization": "Bearer " + localStorage.getItem("token")
+  };
+}
+</script>
+
+</body>
+</html>

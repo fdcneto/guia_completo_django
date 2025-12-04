@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <title>Roles e Permissions no Django (Profissional)</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <style>
+    body {
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      margin: 0;
+      background: #f9fafb;
+      color: #1f2937;
+      line-height: 1.65;
+    }
+
+    header, footer {
+      background: #111827;
+      color: #fff;
+      padding: 1.5rem;
+    }
+
+    header h1 {
+      margin: 0 0 0.5rem 0;
+    }
+
+    nav {
+      background: #e5e7eb;
+      padding: 0.8rem 1.2rem;
+    }
+
+    nav a {
+      margin-right: 1rem;
+      color: #1d4ed8;
+      text-decoration: none;
+      font-weight: 500;
+      white-space: nowrap;
+    }
+
+    nav a:hover {
+      text-decoration: underline;
+    }
+
+    main {
+      max-width: 1000px;
+      margin: auto;
+      padding: 2rem;
+      background: #ffffff;
+    }
+
+    h2 {
+      margin-top: 2.5rem;
+      border-bottom: 2px solid #e5e7eb;
+      padding-bottom: 0.3rem;
+    }
+
+    h3 {
+      margin-top: 1.5rem;
+      color: #374151;
+    }
+
+    ul {
+      padding-left: 1.3rem;
+    }
+
+    li {
+      margin-bottom: 0.4rem;
+    }
+
+    pre {
+      background: #f3f4f6;
+      padding: 1rem;
+      overflow-x: auto;
+      border-left: 4px solid #2563eb;
+    }
+
+    code {
+      color: #111827;
+      font-family: Consolas, monospace;
+      font-size: 0.95rem;
+    }
+
+    .alert {
+      background: #eef2ff;
+      padding: 1rem;
+      border-left: 4px solid #4338ca;
+      margin: 1.5rem 0;
+    }
+
+    footer {
+      text-align: center;
+      font-size: 0.9rem;
+    }
+  </style>
+</head>
+
+<body>
+
+<header>
+  <h1>Controle de Acesso Profissional no Django</h1>
+  <p>Roles, Permissions e Autorização Real com Django REST Framework</p>
+</header>
+
+<nav>
+  <a href="#conceito">Conceito</a>
+  <a href="#arquitetura">Arquitetura</a>
+  <a href="#roles">Roles (Groups)</a>
+  <a href="#permissions">Permissions</a>
+  <a href="#custom">Permissão Customizada</a>
+  <a href="#views">Aplicação nas Views</a>
+</nav>
+
+<main>
+
+<section id="conceito">
+  <h2>1. Conceito Fundamental</h2>
+
+  <p>
+    Em sistemas profissionais, <strong>login não é segurança</strong>.
+    Login apenas identifica o usuário.  
+    <strong>Controle de acesso</strong> define o que ele pode fazer.
+  </p>
+
+  <ul>
+    <li>✅ Autenticação → Quem é você?</li>
+    <li>✅ Autorização → O que você pode fazer?</li>
+  </ul>
+
+  <div class="alert">
+    O frontend nunca decide permissões.  
+    A API é soberana.
+  </div>
+</section>
+
+<section id="arquitetura">
+  <h2>2. Arquitetura Profissional de Acesso</h2>
+
+  <pre><code>
+Requisição HTTP
+  ↓
+JWT Authentication
+  ↓
+Permission Classes
+  ↓
+View / ViewSet
+  ↓
+Resposta da API
+  </code></pre>
+
+  <p>
+    Essa separação garante:
+  </p>
+
+  <ul>
+    <li>Segurança</li>
+    <li>Testabilidade</li>
+    <li>Escalabilidade</li>
+  </ul>
+</section>
+
+<section id="roles">
+  <h2>3. Roles usando Groups</h2>
+
+  <p>
+    No Django, <strong>Group</strong> representa um papel (role).
+    Exemplos comuns:
+  </p>
+
+  <ul>
+    <li><strong>admin</strong> → controle completo</li>
+    <li><strong>user</strong> → acesso limitado</li>
+  </ul>
+
+  <p>
+    Os grupos podem ser cadastrados via Django Admin
+    ou programaticamente.
+  </p>
+
+  <pre><code>
+from django.contrib.auth.models import Group
+
+admin = Group.objects.create(name="admin")
+user = Group.objects.create(name="user")
+  </code></pre>
+</section>
+
+<section id="permissions">
+  <h2>4. Permissions (O que cada role pode fazer)</h2>
+
+  <p>
+    O Django cria permissões automaticamente para cada model:
+  </p>
+
+  <ul>
+    <li>add_model</li>
+    <li>change_model</li>
+    <li>delete_model</li>
+    <li>view_model</li>
+  </ul>
+
+  <p>
+    Exemplo: permitir delete apenas para admins.
+  </p>
+
+  <pre><code>
+from django.contrib.auth.models import Permission
+
+perm = Permission.objects.get(codename="delete_task")
+admin.permissions.add(perm)
+  </code></pre>
+</section>
+
+<section id="custom">
+  <h2>5. Permissão Customizada (Padrão Profissional)</h2>
+
+  <p>
+    A forma mais comum no mercado é usar classes de permissão próprias.
+  </p>
+
+  <pre><code>
+from rest_framework.permissions import BasePermission
+
+class IsAdmin(BasePermission):
+    def has_permission(self, request, view):
+        return (
+            request.user.is_authenticated and
+            request.user.groups.filter(name="admin").exists()
+        )
+  </code></pre>
+
+  <div class="alert">
+    ✅ Clara<br>
+    ✅ Reutilizável<br>
+    ✅ Independe do frontend
+  </div>
+</section>
+
+<section id="views">
+  <h2>6. Aplicando Permissões nas Views</h2>
+
+  <p>
+    Podemos aplicar permissões por ação,
+    aumentando o controle sem duplicar código.
+  </p>
+
+  <pre><code>
+from rest_framework.permissions import IsAuthenticated
+
+class TaskViewSet(ModelViewSet):
+
+    def get_permissions(self):
+        if self.action == "destroy":
+            return [IsAuthenticated(), IsAdmin()]
+        return [IsAuthenticated()]
+  </code></pre>
+
+  <p>
+    Resultado:
+  </p>
+
+  <ul>
+    <li>Usuário comum → listar e criar tarefas</li>
+    <li>Admin → pode deletar</li>
+    <li>API bloqueia acessos indevidos</li>
+  </ul>
+</section>
+
+</main>
+
+<footer>
+  <p>Guia Django Profissional • Roles & Permissions</p>
+</footer>
+
+</body>
+</html>

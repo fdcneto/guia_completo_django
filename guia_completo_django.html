@@ -504,7 +504,10 @@
                 <li><a href="#crud">CRUD Completo</a></li>
                 <li><a href="#auth">Sistema de Autenticação</a></li>
                 <li><a href="#exercicios">Exercícios Práticos</a></li>
-                <li><a href="./projeto_passo_a_passo.html">Passo a passo</a></li>
+                <li><a href="./projeto_passo_a_passo.html" target="_blank">Passo a passo</a></li>
+                <li><a href="./docs/roles_e_permissions_django.html" target="_blank">Roles e Permissions no Django (Profissional)</a></li>
+                <li><a href="./docs/frontend_consumindo_api_jwt.html" target="_blank">Frontend Consumindo API JWT (Django DRF)</a></li>     
+                <li><a href="./docs/drf_advanced_pack.html" target="_blank">DRF Advanced Pack — OpenAPI, JWT, Permissions e Deploy</a></li>
                 <li><a href="#glossario">Glossário de Comandos</a></li>
             </ul>
 
@@ -545,7 +548,7 @@ cd meu-projeto-django</code></pre>
                 <p>Caso necessite desativar o .venv</p>
                 
                 <span class="command-label">Windows (PowerShell)</span>
-                <pre><code>Deactivate</code></pre>
+                <pre><code>deactivate</code></pre>
                 
                 <span class="command-label">Linux/macOS (Bash)</span>
                 <pre><code>source .venv/bin/activate</code></pre>
@@ -745,6 +748,40 @@ AWS_ACCESS_KEY_ID=AKIA...</code></pre>
 .env.production</code></pre>
         <p style="margin: 0.5rem 0 0; font-size: 0.9rem;"><strong>Verificação:</strong> Execute <code>git status</code> - o .env NÃO deve aparecer na lista!</p>
     </div>
+
+    <div class="warning-box" style="margin: 1rem 0; padding: 1rem; background: #fee2e2; border-left: 4px solid #ef4444;">
+        <strong>🚨 COMO CRIAR O <code>.gitignore</code>:</strong>
+        <p style="margin: 0.5rem 0;">Criar um <code>.gitignore</code> é simples e fundamental para manter seu repositório limpo. Vamos direto ao ponto.</p>
+        <p style="margin: 0.5rem 0;">O <code>.gitignore</code> é um arquivo usado pelo Git para ignorar arquivos e pastas que não devem ser versionados, como:
+<ul>
+    <li>
+ambientes virtuais <code>(.venv)</code></li>
+
+<li>arquivos temporários</li>
+
+<li>logs</li>
+
+<li>configurações da IDE</li></ul></p>
+<strong>🚨 Criar manualmente (recomendado)</strong>
+<p style="margin: 0.5rem 0;">1 - Vá até a <strong>raiz do projeto</strong> (onde está a pasta (<code>.git</code>)</p>
+<p style="margin: 0.5rem 0;">2 - Crie um arquivo chamado <strong>exatamente:</strong></p>
+
+        <pre style="margin: 0.5rem 0; background: #1e1e2e; padding: 0.5rem; border-radius: 4px;"><code>
+.gitignore</code></pre>
+
+<p style="margin: 0.5rem 0;">⚠️ Sem extensão (não é .gitignore.txt)</p>
+<strong>🚨 No Windows (PowerShell)</strong>
+
+        <pre style="margin: 0.5rem 0; background: #1e1e2e; padding: 0.5rem; border-radius: 4px;"><code>
+New-Item .gitignore</code></pre>   
+<br>     
+
+<strong>🚨 No Linux / macOS</strong>
+
+        <pre style="margin: 0.5rem 0; background: #1e1e2e; padding: 0.5rem; border-radius: 4px;"><code>
+touch .gitignore</code></pre>        
+    </div>
+
 </div>
 
 <div class="syntax-card">
@@ -788,7 +825,7 @@ EMAIL_HOST_PASSWORD = os.getenv('EMAIL_PASSWORD')</code></pre>
 </div>
 
 <div class="syntax-card">
-    <h5>🔍 Teste de Segurança: Verifique Se Está Funcionando</h5>
+    <h5>🔍 Teste de Segurança. Verifique se está funcionando</h5>
     <p>Abra o shell do Django para testar:</p>
     <pre style="margin: 0.5rem 0; background: #1e1e2e; padding: 1rem; border-radius: 8px;"><code style="color: #cdd6f4;">python manage.py shell</code></pre>
     <p>No shell, execute:</p>
@@ -1996,7 +2033,7 @@ def publicar_post(request, pk):
                 
             </div>
 
-            <h2 id="passo_a_passo"><span class="emoji">💪</span><a href="./projeto_passo_a_passo.html" target="_blank"></span>Passo a passo</a></h2>
+            <h2 id="passo_a_passo"><span class="emoji">💪</span><a href="./docs/projeto_passo_a_passo.html" target="_blank"></span>Passo a passo</a></h2>
 
             <h2 id="glossario"><span class="emoji">📚</span>Glossário de Comandos</h2>
 
